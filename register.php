@@ -1,8 +1,8 @@
 <?php
 	require_once 'functions.php';
-	$email = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = "";
+	$email = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
-	if((isset($_POST['email'])) && (isset($_POST['password'])) && (isset($_POST['password_bek'])) && (isset($_POST['name'])) && (isset($_POST['lastname'])) && (isset($_POST['securityNumber'])) && (isset($_POST['phonenumber'])) && (isset($_POST['town'])) && (isset($_POST['zipcode'])) && (isset($_POST['address1']))){
+	if (isset($_POST["submit"])){
 		$email = sanitizeString($_POST['email']);
 		$password = sanitizeString($_POST['password']);
 		$name = sanitizeString($_POST['name']);
@@ -12,17 +12,24 @@
 		$town = sanitizeString($_POST['town']);
 		$zipcode = sanitizeString($_POST['zipcode']);
 		$address1 = sanitizeString($_POST['address1']);
+		$address2 = sanitizeString($_POST['address2']);
+		$addressco = sanitizeString($_POST['addressco']);
+		$year = $_POST['year'];
+		$month = $_POST['month'];
+		$day = $_POST['day'];
 	//	$address2 = sanitizeString($_POST['address2']);
 	//	$addressco = sanitizeString($_POST['addressco']);
 		//Kontrollerar om alla fällt är ifyllda.
 		if ($email == "" || $password == "" || $name =="" || $lastname =="" || $securityNumber == "" || $phonenumber == "" || $town == "" || $zipcode == "" || $address1 == ""){
 				echo "Not all fields were entered.";
 		}else{
+			$today = getRegistrationDate();
+			$birthday = fixDate($year, $month, $day);
+			$ssn = fixSecurityNumber($year, $month, $day, $securityNumber);
 			$result = querySQL("SELECT * FROM users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
 			if ($result->num_rows == 0){//Om inte eposten finns så lägger vi in den nya användaren i databasen.
 				$query = querySQL("INSERT INTO users (ID, email, passw, regdate, access, birthday, phone, zip, sec, address1, address2, address_co, city, country, first_name, last_name, gender, balance)
-									VALUES('','$email', '$password', '', '1', '', '$phonenumber', '$zipcode', '$securityNumber', '$address1', '','','$town', 'Sweden', '$name', '$lastname', '', '')");
-				echo $query;
+									VALUES('','$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$address2','$addressco','$town', 'Sweden', '$name', '$lastname', '', '')");
 			}else{
 				echo "This email is already registred!";
 			}
@@ -59,15 +66,15 @@
 			<input type = "text" name = "lastname"/><br><br>
 
 			Födelsedatum:
-			<select id = "selectBox">
-				<option value="">ÅÅÅÅ</option>
+			<select id = "selectBox" name = "year">
+				<option value="">YYYY</option>
 				<?php
 					for ($i = 2016; $i>=1900; $i--){
 						echo "<option value=$i>$i</option>";
 					}
 				?>
 			</select>
-			<select>
+			<select name = "month">
 				<option value="">MM</option>
 				<?php
 					for ($i = 1; $i<=12; $i++){
@@ -78,7 +85,7 @@
 					}
 				?>
 			</select>
-			<select>
+			<select name = "day">
 				<option value="">DD</option>
 				<?php
 					for ($i = 1; $i<=31; $i++){

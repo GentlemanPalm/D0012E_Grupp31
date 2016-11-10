@@ -2,7 +2,6 @@
 	include "functions.php";
 	$error = $email = $password = "";
 	
-
   if (isset($_POST['email']) && isset($_POST['password']))
   {
     $email = sanitizeString($_POST['email']);
