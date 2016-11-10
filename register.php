@@ -1,6 +1,6 @@
 <?php
 	require_once 'functions.php';
-	$email = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
+	$email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
 	if (isset($_POST["submit"])){
 		$email = sanitizeString($_POST['email']);
@@ -14,6 +14,7 @@
 		$address1 = sanitizeString($_POST['address1']);
 		$address2 = sanitizeString($_POST['address2']);
 		$addressco = sanitizeString($_POST['addressco']);
+		$orgnr = sanitizeString($_POST['orgnr']);
 		$year = $_POST['year'];
 		$month = $_POST['month'];
 		$day = $_POST['day'];
@@ -99,6 +100,7 @@
 			</select>
 			-
 			<input type = "text" name = "securityNumber" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
+			<input type = "text" name = "orgNr"/><br><br>
 			Telefonnummer:
 			<input type = "text" name = "phonenumber" onkeypress="return isNumber(event)" maxlength = "16" size = "16" /><br><br>
 			<hr>
