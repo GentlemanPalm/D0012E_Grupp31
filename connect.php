@@ -1,9 +1,9 @@
   <?php 
   // Database specifications
-  $dbhost  = 'localhost';    // Our hostname
-  $dbname  = 'paljon-4';   //  name of the database (guess it's paljon4db?)
-  $dbuser  = 'root';   // User of the database (root?)
-  $dbpass  = '';   // password 
+  $dbhost  = 'utbweb.its.ltu.se/';    // Our hostname
+  $dbname  = 'paljon4db';   //  name of the database (guess it's paljon4db?)
+  $dbuser  = 'paljon-4';   // User of the database (root?)
+  $dbpass  = 'Boden1337';   // password 
   $appname = "kontorsmaterial.se"; //
   $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname); // Sets up new mysql connection
   if ($connection->connect_error) die($connection->connect_error); // If unable to connect we end the connection
