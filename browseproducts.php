@@ -21,6 +21,7 @@ require 'template/footer.php';
 generateHeader("Produktlista");
 global $connection;
 $products = querySQL("SELECT (name, price, current_price, vat, avg_grade) FROM Products");
+echo $products;
 ?>
     <table class="table table-hover">
         <thead>
@@ -33,6 +34,7 @@ $products = querySQL("SELECT (name, price, current_price, vat, avg_grade) FROM P
         <tbody>
         <?php
         while ($prod = $products->fetch_assoc()) {
+            echo $prod;
             $org_price = $prod["price"] + $prod["price"] * $prod["vat"]; // Beräkna egentligt pris
             $curr_price = $prod["current_price"] + $prod["current_price"] * $prod["vat"];
             $grade = ($prod["avg_grade"] == NULL) ? 0 : $prod["avg_grade"]; // Se till att betyg inte är NULL
@@ -44,8 +46,8 @@ $products = querySQL("SELECT (name, price, current_price, vat, avg_grade) FROM P
                 <td><?=$prod["name"]?></td>
                 <td><?=$prod["avg_grade"]?></td>
                 <td><?=$curr_price?></td>
-            </tr>
-            <?php } ?>
+            </tr><?php
+        }?>
         </tbody>
     </table>
 <?php
