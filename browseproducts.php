@@ -41,7 +41,7 @@ $products = querySQL("SELECT * FROM Products");
             }
             ?>
             <tr>
-                <td><?=$prod["name"]?></td>
+                <td><a href="viewproduct.php?id=<?=$prod["ID"]?>"><?=$prod["name"]?></a></td>
                 <td><?=$grade?></td>
                 <td><?=$curr_price?></td>
             </tr><?php
