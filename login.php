@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	include "functions.php";
 	$error = $email = $password = "";
 	
@@ -11,9 +12,9 @@
         $error = "Not all fields were entered<br>";
     else
     {
-      $result = querySQL("SELECT email,passw FROM users
+      $result = querySQL("SELECT email,passw, id FROM users
         WHERE email='$email' AND passw='$password'");
-
+		
       if ($result->num_rows == 0)
       {
         $error = "<span class='error'>Username/Password
@@ -21,6 +22,8 @@
       }
       else
       {
+		$val = $result->fetch_assoc();
+		$_SESSION['user_ID'] = $val['id'];
 		//Start sessions here.
 		header ("Location: http://google.se") ;
       }

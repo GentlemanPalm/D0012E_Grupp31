@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
@@ -31,6 +33,12 @@ generateHeader($valid ? $val["name"] : "Proukten kunde inte hittas");
 		return true;
 	}
 </script>
+<script src = "addtocart.js"></script>
+<script>
+	window.onload = function(){
+		getQuantity(<?php echo $id;?>);
+	}
+</script>
 <?php
 
 if (!$valid) {
@@ -41,14 +49,13 @@ if (!$valid) {
 	$price = $val["current_price"] + $val["current_price"] * $val["vat"];
 	?>
 	 <h2><?=$val["name"]?></h2>
-	 <p>Lagersaldo: <?=$val["quantity"]?></p>
+	 <p>Lagersaldo: <div id = "show_quantity"></div></p>
 	 <p>Pris: <?=$price?></p>
 	 <p><?=$val["description"]?></p>
-	 <form action="<!-- TODO: Add a way to add to cart -->" method="POST">
-	 	Antal: <input type = "text" name = "quantity" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
-	 	<button type="submit" class="btn btn-success">
+	 	Antal: <input type = "text" value ="1" id ="quantity" name = "quantity" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
+	 	<button type="submit" class="btn btn-success" onClick="addToCart(<?php echo $id; ?>)">
 	 		Lägg till i varukorgen <span class="glyphicon glyphicon-shopping-cart"></span>
 	 	</button>
-	 </form>
+		<div id="txtHint"></div>
 	<?php
 }
