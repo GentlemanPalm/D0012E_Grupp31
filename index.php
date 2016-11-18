@@ -47,9 +47,8 @@
 		<div class="col-sm-3">
 			<h2>Cart</h2>
 			<div class = "table-responsive">
-				<table id = "cart"class ="table table-striped">
+				<table id = "cart" class ="table table-striped">
 			
-
 				</table>
 			</div>
 			<button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span> Kassa</button>
