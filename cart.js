@@ -16,7 +16,8 @@ function loadCart(id){
 		xmlhttp.send();
 	}
 }
-function deleteItem(item, id){
+function deleteItem(item){
+	var x = JSON.parse(item);
 	if (item ==""){
 		console.log("Item är tomt");
 		return;
@@ -28,8 +29,7 @@ function deleteItem(item, id){
 		}
 		xmlhttp.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
-				loadCart('1');
-				console.log("Godkänt");
+				loadCart(x.user_ID);
 			}
 		};
 		xmlhttp.open("GET", "deleteitem.php?q="+item,true);

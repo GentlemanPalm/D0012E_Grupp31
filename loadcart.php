@@ -23,12 +23,14 @@ session_start();
 					<th>Antal:</th>
 				</tr>";
 		while($row = mysqli_fetch_array($result)) {
+						$row['user_ID'] = $user_ID;
+						$mew= json_encode ($row);
 						echo "
 						<tr>
 								<td>$row[name]</td>
 								<td>$row[price]:-</td>
 								<td>$row[quantity]st</td>
-								<td onClick=deleteItem('$row[item]'); style='cursor: pointer;'><img src = 'media/kryss.png' height='10px'></td>
+								<td onClick=deleteItem('$mew'); style='cursor: pointer;'><img src = 'media/kryss.png' height='10px'></td>
 							</tr><br>";
 				
 			}
