@@ -20,19 +20,21 @@ session_start();
 		$result = mysqli_query($con,$sql);
 		echo "										<tr>
 					<th>Produkt:</th>
-					<th>Pris:</th>
+					<th>Pris/st:</th>
 					<th>Antal:</th>
+					<th>Summa:</th>
 				</tr>";
 		while($row = mysqli_fetch_array($result)) {
 						$row['user_ID'] = $user_ID;
+						$totalprice = $row['quantity']*$row['price'];
 						$ggnice = array('user_ID'=>$row['user_ID'], 'ID'=>$row['ID'], 'item'=>$row['item']);
 						$mew= json_encode ($ggnice);
-						
 						echo "
 						<tr>
 								<td>$row[name]</td>
 								<td>$row[price]:-</td>
 								<td>$row[quantity]st</td>
+								<td>$totalprice:-</td>
 								<td onClick=deleteItem('$mew'); style='cursor: pointer;'><img src = 'media/kryss.png' height='10px'></td>
 							</tr><br>";
 				
