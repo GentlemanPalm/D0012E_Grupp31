@@ -66,7 +66,7 @@ $res = $result->fetch_assoc();
     <input type = "text" name = "price" onkeypress="return isNumber(event)" maxlength = "6" size = "6" value="<?=$res["price"]?>"/><br><br>
 
     Nuvarande exklusive moms:
-    <input type = "text" name = "current_price" onkeypress="return isNumber(event)" maxlength = "6" size = "6" value="<?=$res["current_price"]?>"/><br><br>
+    <input type = "text" name = "cprice" onkeypress="return isNumber(event)" maxlength = "6" size = "6" value="<?=$res["current_price"]?>"/><br><br>
     <input type = "hidden" name = "id" value="<?=$id?>" />
     Momssats:
     <select name="vat">

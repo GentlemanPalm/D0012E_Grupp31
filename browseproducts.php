@@ -28,6 +28,7 @@ $products = querySQL("SELECT * FROM Products");
             <th>Produktnamn</th>
             <th>Betyg</th>
             <th>Pris</th>
+            <th>Redigera</th>
         </tr>
         </thead>
         <tbody>
@@ -44,6 +45,7 @@ $products = querySQL("SELECT * FROM Products");
                 <td><a href="viewproduct.php?id=<?=$prod["ID"]?>"><?=$prod["name"]?></a></td>
                 <td><?=$grade?></td>
                 <td><?=$curr_price?></td>
+                <td><a href="editproduct.php?id=<?=$prod["ID"]?>">Redigera</a></td>
             </tr><?php
         }?>
         </tbody>
