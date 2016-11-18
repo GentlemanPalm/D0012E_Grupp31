@@ -25,7 +25,7 @@
 		$val = $result->fetch_assoc();
 		$_SESSION['user_ID'] = $val['id'];
 		//Start sessions here.
-		header ("Location: http://google.se") ;
+		header ("Location: browseproducts.php") ;
       }
     }
   }

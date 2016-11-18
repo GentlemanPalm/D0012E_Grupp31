@@ -1,5 +1,7 @@
 <?php
 session_start();
+		require "connect.php";
+		global $connection;
 		$user_ID = $session_ID = "";
 		if(isset($_SESSION['user_ID']) && !($_SESSION['user_ID']== 0)){
 			$user_ID = $_SESSION['user_ID'];
@@ -9,13 +11,12 @@ session_start();
 		$id= $_GET['q'];
 
 		
-		$con = mysqli_connect('localhost','root','','paljon-4');
+		$con = $connection;
 		if (!$con){
 			die('Could not connect: ' . mysqli_error($con));
 		}
-		mysqli_select_db($con,"paljon-4");
 		
-		$sql="SELECT  products.name, products.price, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND (cart.user_ID = '$id' OR cart.session_ID = '$session_ID')";
+		$sql="SELECT  products.name, products.price, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND (cart.user_ID = '$id' OR cart.session_ID = '$session_ID') WHERE cart.order_ID IS NULL";
 		$result = mysqli_query($con,$sql);
 		echo "										<tr>
 					<th>Produkt:</th>
@@ -24,7 +25,9 @@ session_start();
 				</tr>";
 		while($row = mysqli_fetch_array($result)) {
 						$row['user_ID'] = $user_ID;
-						$mew= json_encode ($row);
+						$ggnice = array('user_ID'=>$row['user_ID'], 'ID'=>$row['ID'], 'item'=>$row['item']);
+						$mew= json_encode ($ggnice);
+						
 						echo "
 						<tr>
 								<td>$row[name]</td>

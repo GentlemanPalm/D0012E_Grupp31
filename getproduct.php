@@ -6,6 +6,8 @@
 
 		<?php
 		session_start();
+		require "connect.php";
+		global $connection;
 		$user_ID = $session_ID = "";
 		if(isset($_SESSION['user_ID']) && !($_SESSION['user_ID']== 0) ){
 			$user_ID = $_SESSION['user_ID'];
@@ -16,11 +18,10 @@
 		$id = $quantity = "";
 		fixString($q);
 		
-		$con = mysqli_connect('localhost','root','','paljon-4');
+		$con = $connection;
 		if (!$con){
 			die('Could not connect: ' . mysqli_error($con));
 		}
-		mysqli_select_db($con,"paljon-4");
 		$sql="SELECT * FROM products WHERE ID = '$id'";
 		$result = mysqli_query($con,$sql);
 
