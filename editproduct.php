@@ -22,7 +22,7 @@ if (isset($_POST["submit"])){
     if ($pname == "" || $quantity < 0 || $desc =="" || $price < 0 || $vat == "" || $cat == "") {
         echo "Not all fields were entered correctly.";
     }else{
-        $query = querySQL("UPDATE Products SET name = '$pname', quantity = $quantity, description = '$desc', price = $price, vat = $vat, current_price = $cprice, category_ID = $cat WHERE ID = $id");
+        $query = querySQL("UPDATE Products SET name = '$pname', quantity = $quantity, description = '$desc', price = $price, vat = $vat, current_price = $cprice, category_ID = $cat WHERE ID = $id;");
         if (strlen($img)) {
             querySQL("UPDATE Images SET path = $img WHERE ID = $imgid");
         } else {

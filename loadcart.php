@@ -17,7 +17,7 @@ session_start();
 			die('Could not connect: ' . mysqli_error($con));
 		}
 		
-		$sql="SELECT  products.name, products.price, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND (cart.user_ID = '$id' OR cart.session_ID = '$session_ID') WHERE cart.order_ID IS NULL";
+		$sql="SELECT  products.name, products.price, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND cart.user_ID = '$user_ID' WHERE cart.order_ID IS NULL";
 		$result = mysqli_query($con,$sql);
 		echo "										<tr>
 					<th>Produkt:</th>
