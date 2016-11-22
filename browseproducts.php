@@ -19,7 +19,14 @@ require 'template/header.php';
 require 'template/footer.php';
 
 generateHeader("Produktlista");
-$products = querySQL("SELECT * FROM Products");
+$products = NULL;
+if (isset($_GET["id"])) {
+    $id = sanitizeString($_GET["id"]);
+    $products = querySQL("SELECT * FROM Products WHERE category_ID = $id");
+} else {
+    $products = querySQL("SELECT * FROM Products");
+}
+
 //echo $products;
 ?>
     <table class="table table-hover">
