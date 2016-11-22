@@ -47,7 +47,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                 <h3>Kategori</h3>
                 <ul class="list-group"><!-- Lägg till så att man kan få fram kategorierna -->
                     <li class="list-group-item">Pennor <span class="badge">14</span></li>
-                    <li class="list-group-item">Bläck <span class="badge">8</span></li>
+                    <li class="list-group-item">Bläck <span class="badge">8</span></li> <!-- Snart... -->
                     <li class="list-group-item">Papper <span class="badge">5</span></li>
                     <li class="list-group-item">Skrivare <span class="badge">3</span></li>
                 </ul>
