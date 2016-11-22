@@ -14,7 +14,6 @@
 		$address1 = sanitizeString($_POST['address1']);
 		$address2 = sanitizeString($_POST['address2']);
 		$addressco = sanitizeString($_POST['addressco']);
-		$orgnr = sanitizeString($_POST['orgnr']);
 		$year = $_POST['year'];
 		$month = $_POST['month'];
 		$day = $_POST['day'];
@@ -29,6 +28,7 @@
 			$ssn = fixSecurityNumber($year, $month, $day, $securityNumber);
 			$result = querySQL("SELECT * FROM users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
 			if ($result->num_rows == 0){//Om inte eposten finns så lägger vi in den nya användaren i databasen.
+				querySQL("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
 				$query = querySQL("INSERT INTO users (ID, email, passw, regdate, access, birthday, phone, zip, sec, address1, address2, address_co, city, country, first_name, last_name, gender, balance)
 									VALUES('','$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$address2','$addressco','$town', 'Sweden', '$name', '$lastname', '', '')");
 			}else{
@@ -53,7 +53,7 @@
 	</head>
 	<body>
 	<h1>Registrering</h1>
-		<form action = "" method = "POST">
+		<form action = "" method = "POST" accept-charset="utf-8">
 			E-post:
 			<input type = "text" name = "email"/><br><br>
 			Lösendord:
@@ -100,7 +100,6 @@
 			</select>
 			-
 			<input type = "text" name = "securityNumber" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
-			<input type = "text" name = "orgNr"/><br><br>
 			Telefonnummer:
 			<input type = "text" name = "phonenumber" onkeypress="return isNumber(event)" maxlength = "16" size = "16" /><br><br>
 			<hr>
