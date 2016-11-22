@@ -20,7 +20,6 @@ function generateFooter() {
         <table class="table table-responsive table-hover" id="cart">
         </table>
         <script src="cart.js"></script>
-        <p><strong>Totalt: 299</strong></p>
         <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>Kassa</button>
     </div>
     </div>

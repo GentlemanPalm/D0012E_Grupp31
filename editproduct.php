@@ -1,6 +1,7 @@
 <?php
 require_once 'functions.php';
 require 'template/header.php';
+require 'template/footer.php';
 global $connection;
 $email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 //Undviker SQL-injection
@@ -106,5 +107,5 @@ $res = $result->fetch_assoc();
     <button type="submit" name = "submit" class = "btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Redigera vara!</button><a href="deleteproduct.php?id=<?=$id?>"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Ta bort</button></a>
     <hr>
 </form>
-</body>
-</html>
+<?php
+generateFooter();
