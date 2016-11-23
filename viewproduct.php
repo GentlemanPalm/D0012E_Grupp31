@@ -59,4 +59,3 @@ if (!$valid) {
 		<div id="txtHint"></div>
 	<?php
 }
-generateFooter();

@@ -1,7 +1,6 @@
 <?php
 	require_once 'functions.php';
 	require 'template/header.php';
-	require 'template/footer.php';
 	$email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
 	if (isset($_POST["submit"])){
@@ -80,5 +79,5 @@
 			<input type = "submit" name = "submit" value = "Lägg till vara!"/>
 			<hr>			
 		</form>
-<?php
-generateFooter();
+	</body>
+</html>
