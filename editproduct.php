@@ -1,6 +1,7 @@
 <?php
 require_once 'functions.php';
 require 'template/header.php';
+require 'template/footer.php';
 global $connection;
 $email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 //Undviker SQL-injection
@@ -14,7 +15,7 @@ if (isset($_POST["submit"])){
     $cprice = sanitizeString($_POST["cprice"]);
     $vat = sanitizeString($_POST["vat"]);
     $cat = sanitizeString($_POST["cat"]);
-    $img = $connection->real_escape_string($_POST["img"]);
+    $img = sanitizeString($_POST["img"]);
     $imgid = sanitizeString($_POST["imgid"]);
     //	$address2 = sanitizeString($_POST['address2']);
     //	$addressco = sanitizeString($_POST['addressco']);
@@ -24,7 +25,7 @@ if (isset($_POST["submit"])){
     }else{
         $query = querySQL("UPDATE Products SET name = '$pname', quantity = $quantity, description = '$desc', price = $price, vat = $vat, current_price = $cprice, category_ID = $cat WHERE ID = $id;");
         if (strlen($img)) {
-            querySQL("UPDATE Images SET path = $img WHERE ID = $imgid");
+            querySQL("UPDATE Images SET path = '$img' WHERE ID = $imgid");
         } else {
             querySQL("UPDATE Products SET preview = NULL WHERE ID = $id");
         }
@@ -102,8 +103,9 @@ $res = $result->fetch_assoc();
     <input type = "text" name = "img" value="<?=$iurl?>"/><br/><br/>
     <input type = "hidden" name = "imgid" value="<?=$imgid?>"/>
 
-    <input type = "submit" name = "submit" value = "Redigera vara!"/>
+    
+    <button type="submit" name = "submit" class = "btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Redigera vara!</button><a href="deleteproduct.php?id=<?=$id?>"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Ta bort</button></a>
     <hr>
 </form>
-</body>
-</html>
+<?php
+generateFooter();
