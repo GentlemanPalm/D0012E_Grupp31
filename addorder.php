@@ -25,28 +25,10 @@
 			$query = querySQL("INSERT INTO Orders (payment_option, payment_received, order_placed, discount)
 					VALUES ('Faktura', 'FALSE', NOW(), 0)");
 			$iid = mysqli_insert_id($connection);
-			echo $user_ID; echo " ".$iid; echo "UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID = NULL)";
-			querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)");
-			echo "";
+			querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)"); 
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 ?>
 	<meta charset= "UTF-8"/>
 	<script src = "getuser.js" charset="UTF-8"></script>

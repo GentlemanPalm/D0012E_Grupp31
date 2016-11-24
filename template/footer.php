@@ -20,7 +20,7 @@ function generateFooter() {
         <table class="table table-responsive table-hover" id="cart">
         </table>
         <script src="cart.js"></script>
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>Kassa</button>
+        <a href="addorder.php"><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>Kassa</button></a>
     </div>
     </div>
     </div>

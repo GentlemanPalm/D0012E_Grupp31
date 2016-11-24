@@ -42,8 +42,16 @@ if (!$valid) {
 	<?php
 } else {
 	$price = $val["current_price"] + $val["current_price"] * $val["vat"];
+	$img_id = 0;
+	if ($val["preview"] == NULL) {
+		$img_id = querySQL("SELECT img_path FROM Categories WHERE ID = {$val["category_ID"]}")->fetch_assoc()["img_path"];
+	} else {
+		$img_id = $val["preview"];
+	}
+	$img_url = querySQL("SELECT path FROM Images WHERE ID = $img_id")->fetch_assoc()["path"];
 	?>
 	 <h2><?=$val["name"]?></h2>
+	 <img src = "<?=$img_url?>" alt = "Produktbild" width = "500px" />
 	 <p>Lagersaldo: <div id = "show_quantity"></div></p>
 	 <p>Pris: <?=$price?></p>
 	 <p><?=$val["description"]?></p>
