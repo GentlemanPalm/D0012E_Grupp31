@@ -33,6 +33,7 @@ generateHeader($valid ? $val["name"] : "Proukten kunde inte hittas");
 		return true;
 	}
 </script>
+<script src="addtocart.js"></script>
 <?php
 
 if (!$valid) {
