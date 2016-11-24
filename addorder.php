@@ -19,11 +19,15 @@
 		$town = sanitizeString($_POST['town']);
 		$zipcode = sanitizeString($_POST['zip']);
 		$address1 = sanitizeString($_POST['address1']);
-		if ($email == "" || $name =="" || $lastname =="" || $telefonnummer == "" || $town == "" || $zipcode == "" || $address1 == ""){
+		if ($user_ID == ""){
 			echo "Not all fields were entered.";
 		}else{
-			$query = querySQL("INSERT INTO orders (ID, b_phone, b_zip, b_address1, b_city, b_country, s_phone, s_zip, s_address1, s_city, s_country, payment_option, payment_received)
-					VALUES ('', '$telefonnummer', '$zipcode', '$address1', '$town', 'Sweden', '$telefonnummer', '$zipcode', '$address1', '$town', 'Sweden', 'Faktura', 'FALSE')");
+			$query = querySQL("INSERT INTO Orders (payment_option, payment_received, order_placed, discount)
+					VALUES ('Faktura', 'FALSE', NOW(), 0)");
+			$iid = mysqli_insert_id($connection);
+			echo $user_ID; echo " ".$iid; echo "UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID = NULL)";
+			querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)");
+			echo "";
 		}
 		
 	}
@@ -74,12 +78,14 @@
 			<div class = "col-md-2"></div>
 			<div class = "col-md-2"></div>
 			<div class = "col-md-8">
-				<input type="email" class = "form-control" id ="email" name = "email" placeholder="E-post"><br>
+			<form action="" method = "POST">
+				<!--input type="email" class = "form-control" id ="email" name = "email" placeholder="E-post"><br>
 				<input type="text" class = "form-control" name = "address1" id = "address1" placeholder="Address"><br>
 				<input type = "text" class = "form-control" name = "zip" id = "zip" placeholder = "Postnummer"><br>
 				<input type = "text" class = "form-control" name = "town" placeholder = "Ort" id ="city"><br>
-				<input type = "text" class = "form-control" name = "phone" id ="phone" placeholder = "Telefonnummer"><br>
+				<input type = "text" class = "form-control" name = "phone" id ="phone" placeholder = "Telefonnummer"><br>-->
 				<input type = "submit" name = "submit" value="Lägg order" class="btn btn-success btn-block"><br><br>
+			</form>
 				
 			</div>
 			</form>
