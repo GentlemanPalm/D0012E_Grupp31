@@ -17,7 +17,7 @@ session_start();
 			die('Could not connect: ' . mysqli_error($con));
 		}
 		
-		$sql="SELECT  products.name, products.price, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND cart.user_ID = '$user_ID' WHERE cart.order_ID IS NULL";
+		$sql="SELECT  products.name, products.price, products.vat, cart.item, cart.ID, cart.quantity FROM products INNER JOIN cart ON cart.item = products.ID AND cart.user_ID = '$user_ID' WHERE cart.order_ID IS NULL";
 		$result = mysqli_query($con,$sql);
 		echo "										<tr>
 					<th>Produkt:</th>
@@ -27,14 +27,15 @@ session_start();
 				</tr>";
 		while($row = mysqli_fetch_array($result)) {
 						$row['user_ID'] = $user_ID;
-						$totalprice = $row['quantity']*$row['price'];
+						$totalprice = $row['quantity']*$row['price'] + $row['quantity']*$row['price']*$row['vat'];
 						$total = sum($totalprice, $total);
+						$unitprice = $row["price"] + $row["price"] * $row["vat"];
 						$ggnice = array('user_ID'=>$row['user_ID'], 'ID'=>$row['ID'], 'item'=>$row['item']);
 						$mew= json_encode ($ggnice);
 						echo "
 						<tr>
 								<td>$row[name]</td>
-								<td>$row[price]:-</td>
+								<td>$unitprice kr</td>
 								<td>$row[quantity]st</td>
 								<td>$totalprice:-</td>
 								<td onClick=deleteItem('$mew'); style='cursor: pointer;'><img src = 'media/kryss.png' height='10px'></td>
