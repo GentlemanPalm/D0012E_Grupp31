@@ -30,11 +30,7 @@
 				$newQuantity = $row['quantity'] - $quantity;
 				$sql = "UPDATE products SET quantity = '$newQuantity' WHERE id = '$q'";
 				mysqli_query($con, $sql);
-				if($user_ID==0){
-					$sql="INSERT INTO cart(session_ID, user_ID, item, quantity, shipped) VALUES ('$session_ID','', '$id', '$quantity', '0')";
-				}else{
-					$sql="INSERT INTO cart(session_ID, user_ID, item, quantity, shipped) VALUES ('$session_ID','$user_ID', '$id', '$quantity', '0')";
-				}
+					$sql="INSERT INTO cart(user_ID, item, quantity) VALUES ('$user_ID', '$id', '$quantity')";
 				mysqli_query($con, $sql);
 				echo "Produkt tillagd i varukorgen";
 			}else{

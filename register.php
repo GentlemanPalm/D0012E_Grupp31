@@ -12,8 +12,6 @@
 		$town = sanitizeString($_POST['town']);
 		$zipcode = sanitizeString($_POST['zipcode']);
 		$address1 = sanitizeString($_POST['address1']);
-		$address2 = sanitizeString($_POST['address2']);
-		$addressco = sanitizeString($_POST['addressco']);
 		$year = $_POST['year'];
 		$month = $_POST['month'];
 		$day = $_POST['day'];
@@ -29,8 +27,8 @@
 			$result = querySQL("SELECT * FROM users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
 			if ($result->num_rows == 0){//Om inte eposten finns så lägger vi in den nya användaren i databasen.
 				querySQL("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
-				$query = querySQL("INSERT INTO users (email, passw, regdate, access, birthday, phone, zip, sec, address1, address2, address_co, city, country, first_name, last_name, gender, balance)
-									VALUES('$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$address2','$addressco','$town', 'Sweden', '$name', '$lastname', '', 0)");
+				$query = querySQL("INSERT INTO users (ID, email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
+									VALUES('','$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$town', 'Sweden', '$name', '$lastname')");
 			}else{
 				echo "This email is already registred!";
 			}
@@ -113,10 +111,6 @@
 			<input type = "text" name = "zipcode" onkeypress="return isNumber(event)" maxlength = "5" size = "5" /><br><br>
 			Address 1:
 			<input type = "text" name = "address1"/><br><br>
-			Address 2:
-			<input type = "text" name = "address2"/><br><br>
-			Address CO:
-			<input type = "text" name = "addressco"/><br><br>
 			<input type = "submit" name = "submit" value = "Registrera mig"/>
 			<hr>
 
