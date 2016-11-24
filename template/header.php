@@ -58,7 +58,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
     <div class="jumbotron" stype="margin-left:10pt;">
         <h1>Kontorsshoppen.se - <?=$title?></h1>
         <p>Kontorsvaror för den prisblinde kunden</p>
-    </div>
+    
     <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -72,7 +72,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
 
                 </ul>
             </div>
-        </nav>
+        </nav></div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2">

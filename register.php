@@ -27,8 +27,8 @@
 			$result = querySQL("SELECT * FROM users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
 			if ($result->num_rows == 0){//Om inte eposten finns så lägger vi in den nya användaren i databasen.
 				querySQL("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
-				$query = querySQL("INSERT INTO users (ID, email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
-									VALUES('','$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$town', 'Sweden', '$name', '$lastname')");
+				$query = querySQL("INSERT INTO users (email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
+									VALUES('$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$town', 'Sweden', '$name', '$lastname')");
 			}else{
 				echo "This email is already registred!";
 			}
