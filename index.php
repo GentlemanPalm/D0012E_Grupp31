@@ -1,4 +1,5 @@
 <?php
+	header("Location: browseproducts.php");
 	session_start();
 		$user_ID = $session_ID = "";
 		if(isset($_SESSION['user_ID'])){

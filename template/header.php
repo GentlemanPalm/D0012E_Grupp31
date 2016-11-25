@@ -78,6 +78,9 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
             <div class="col-sm-2">
                 <h3>Kategorier</h3>
                 <ul class="list-group"><!-- Lägg till så att man kan få fram kategorierna -->
+		<?php
+		$total_items = querySQL("SELECT ID FROM Products")->num_rows; ?>
+            <li class="list-group-item"><a href="browseproducts.php">Alla kategorier</a><span class="badge"><?=$total_items?></span></li>
                     <?php  generateCategories(); ?>
                 </ul>
             </div>
