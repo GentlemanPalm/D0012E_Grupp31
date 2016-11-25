@@ -11,7 +11,7 @@
  * PHP-dokument. Just nu får denna dock vara ganska så bare-bones.
  * */
 
-				session_start();
+	session_start();
         $user_ID = $session_ID = "";
         if(isset($_SESSION['user_ID'])){
             $user_ID = $_SESSION['user_ID'];
@@ -54,7 +54,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
         </head>
         <?php
     } ?>
-    <body onload="loadCart(<?=$user_ID?>);">
+    <body onload="loadCart(<?php echo $_SESSION['user_ID'];?>);">
     <div class="jumbotron" stype="margin-left:10pt;">
         <h1>Kontorsshoppen.se - <?=$title?></h1>
         <p>Kontorsvaror för den prisblinde kunden</p>

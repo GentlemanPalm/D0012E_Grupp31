@@ -15,7 +15,7 @@
 				die('Could not connect: ' . mysqli_error($con));
 			}
 			
-			$sql="DELETE FROM cart WHERE item = '$item' AND user_ID = '$user_ID' AND ID = '$cart_ID' "; // Lägg till rätt ID här...
+			$sql="DELETE FROM Cart WHERE item = '$item' AND user_ID = '$user_ID' AND ID = '$cart_ID' "; // Lägg till rätt ID här...
 			$result = mysqli_query($con,$sql);
 			mysqli_close($con);
 ?>

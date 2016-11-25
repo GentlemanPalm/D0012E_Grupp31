@@ -51,7 +51,6 @@ if (!$valid) {
 	$img_url = "";
 	if ($val["preview"] == NULL) {
 		$img_url = querySQL("SELECT img_path FROM Categories WHERE ID = {$val["category_ID"]}")->fetch_assoc()["img_path"];
-		echo "SELECT img_path FROM Categories WHERE ID = {$val["category_ID"]}";
 	} else {
 		$img_id = $val["preview"];
 		$img_url = querySQL("SELECT path FROM Images WHERE ID = $img_id")->fetch_assoc()["path"];
