@@ -33,6 +33,11 @@ generateHeader($valid ? $val["name"] : "Proukten kunde inte hittas");
 		return true;
 	}
 </script>
+  <script>
+	window.onload = function(){
+			getQuantity('<?php echo $id;?>');
+	}
+	</script>
 <script src="addtocart.js"></script>
 <?php
 
