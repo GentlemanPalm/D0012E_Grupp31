@@ -57,7 +57,7 @@ if (!$valid) {
 	}
 	?>
 	 <h2><?=$val["name"]?></h2>
-	 <img src = "<?=$img_url?>" alt = "Produktbild" width = "500px" />
+	 <img src = "<?=$img_url?>" alt = "Produktbild" width = "200px" />
 	 <p>Lagersaldo: <div id = "show_quantity"></div></p>
 	 <p>Pris: <?=$price?></p>
 	 <p><?=$val["description"]?></p>
