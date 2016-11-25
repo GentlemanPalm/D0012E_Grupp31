@@ -24,11 +24,12 @@
 			$today = getRegistrationDate();
 			$birthday = fixDate($year, $month, $day);
 			$ssn = fixSecurityNumber($year, $month, $day, $securityNumber);
-			$result = querySQL("SELECT * FROM users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
+			$result = querySQL("SELECT * FROM Users WHERE email = '$email'");//Kontrollerar om eposten redan existerar
 			if ($result->num_rows == 0){//Om inte eposten finns så lägger vi in den nya användaren i databasen.
 				querySQL("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
-				$query = querySQL("INSERT INTO users (email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
+				$query = querySQL("INSERT INTO Users (email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
 									VALUES('$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$town', 'Sweden', '$name', '$lastname')");
+				header("Location: login.php");
 			}else{
 				echo "This email is already registred!";
 			}

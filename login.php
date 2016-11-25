@@ -12,7 +12,7 @@
         $error = "Not all fields were entered<br>";
     else
     {
-      $result = querySQL("SELECT email,passw, id FROM users
+      $result = querySQL("SELECT email,passw, id FROM Users
         WHERE email='$email' AND passw='$password'");
 		
       if ($result->num_rows == 0)

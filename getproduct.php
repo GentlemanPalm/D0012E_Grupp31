@@ -22,15 +22,15 @@
 		if (!$con){
 			die('Could not connect: ' . mysqli_error($con));
 		}
-		$sql="SELECT * FROM products WHERE ID = '$id'";
+		$sql="SELECT * FROM Products WHERE ID = '$id'";
 		$result = mysqli_query($con,$sql);
 
 		while($row = mysqli_fetch_array($result)) {
 			if(check_quantity($id, $quantity, $con)){
 				$newQuantity = $row['quantity'] - $quantity;
-				$sql = "UPDATE products SET quantity = '$newQuantity' WHERE id = '$q'";
+				$sql = "UPDATE Products SET quantity = '$newQuantity' WHERE ID = '$q'";
 				mysqli_query($con, $sql);
-					$sql="INSERT INTO cart(user_ID, item, quantity) VALUES ('$user_ID', '$id', '$quantity')";
+					$sql="INSERT INTO Cart(user_ID, item, quantity) VALUES ('$user_ID', '$id', '$quantity')";
 				mysqli_query($con, $sql);
 				echo "Produkt tillagd i varukorgen";
 			}else{
@@ -49,7 +49,7 @@
 		}
 		
 		function check_quantity($id, $quantity, $con){
-			$sql="SELECT quantity FROM products WHERE ID = '$id'";
+			$sql="SELECT quantity FROM Products WHERE ID = '$id'";
 			$result = mysqli_query($con,$sql);
 
 			while($row = mysqli_fetch_array($result)) {

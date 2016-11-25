@@ -9,7 +9,7 @@
 			die('Could not connect: ' . mysqli_error($con));
 		}
 		
-		$sql="SELECT quantity FROM products WHERE ID = '$id'";
+		$sql="SELECT quantity FROM Products WHERE ID = '$id'";
 		$result = mysqli_query($con,$sql);
 
 		while($row = mysqli_fetch_array($result)) {
