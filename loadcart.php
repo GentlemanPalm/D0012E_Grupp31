@@ -17,7 +17,7 @@ session_start();
 			die('Could not connect: ' . mysqli_error($con));
 		}
 		
-		$sql="SELECT  Products.name, Products.price, Products.vat, Cart.item, Cart.ID, Cart.quantity FROM Products INNER JOIN Cart ON Cart.item = Products.ID AND Cart.user_ID = '$user_ID' WHERE Cart.order_ID IS NULL";
+		$sql="SELECT  Products.name, Products.current_price, Products.vat, Cart.item, Cart.ID, Cart.quantity FROM Products INNER JOIN Cart ON Cart.item = Products.ID AND Cart.user_ID = '$user_ID' WHERE Cart.order_ID IS NULL";
 		$result = mysqli_query($con,$sql);
 		echo "										<tr>
 					<th>Produkt:</th>
@@ -27,9 +27,9 @@ session_start();
 				</tr>";
 		while($row = mysqli_fetch_array($result)) {
 						$row['user_ID'] = $user_ID;
-						$totalprice = $row['quantity']*$row['price'] + $row['quantity']*$row['price']*$row['vat'];
+						$totalprice = $row['quantity']*$row['current_price'] + $row['quantity']*$row['current_price']*$row['vat'];
 						$total = sum($totalprice, $total);
-						$unitprice = $row["price"] + $row["price"] * $row["vat"];
+						$unitprice = $row["current_price"] + $row["current_price"] * $row["vat"];
 						$ggnice = array('user_ID'=>$row['user_ID'], 'ID'=>$row['ID'], 'item'=>$row['item']);
 						$mew= json_encode ($ggnice);
 						echo "
