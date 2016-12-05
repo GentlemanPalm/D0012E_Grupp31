@@ -9,6 +9,7 @@ if (isset($_SESSION['user_ID'])) {
 	$res = querySQL("SELECT first_name, last_name FROM Users WHERE ID = '$id'")->fetch_assoc();
 ?>
 	<li><a href="userpane.php"><?=$res["first_name"]?> <?=$res["last_name"]?></a></li>
+	<li><a href="logout.php">Logga ut</a></li>
 <?php
 } else {
 ?>

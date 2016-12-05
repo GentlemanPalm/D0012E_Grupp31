@@ -71,7 +71,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                     <li><a href="createcategory.php">Skapa kategori</a></li>
                 </ul>
                 <ul class="nav navbar-nav" id="usrnav">
-                    
+                    <!-- Detta bör förgöras av .ajax... -->
                 </ul>
                 <script type="text/javascript" src="usrnav.js" onload="usrnav();"></script>
             </div>
