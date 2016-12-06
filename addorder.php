@@ -9,7 +9,7 @@
 	require "functions.php";
 	global $connection;
 	include "template/header.php";
-	generateHeader('Add Order');
+	generateHeader('Kassan');
 	include "template/footer.php";
 	if (isset($_POST["submit"])){
 		$email = sanitizeString($_POST['email']);
@@ -22,10 +22,15 @@
 		if ($user_ID == ""){
 			echo "Not all fields were entered.";
 		}else{
-			$query = querySQL("INSERT INTO Orders (payment_option, payment_received, order_placed, discount)
-					VALUES ('Faktura', 'FALSE', NOW(), 0)");
+			$query = querySQL("INSERT INTO Orders (user_ID, payment_option, payment_received, order_placed, discount)
+					VALUES ('$user_ID', 'Faktura', 'FALSE', NOW(), 0)");
 			$iid = mysqli_insert_id($connection);
-			querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)"); 
+			$query = querySQL("SELECT p.ID, c.quantity, p.price, p.vat FROM Cart c INNER JOIN Products p ON c.item=p.ID WHERE c.user_ID = $user_ID");
+			while ($res = $query->fetch_assoc()) {
+				querySQL("INSERT INTO OrderItems (order_ID, item, quantity, price, vat, shipped) VALUES ('$iid', '$res[ID]', '$res[quantity]', '$res[price]', '$res[vat]', NULL)");
+			}
+			querySQL("DELETE FROM Cart WHERE user_ID = '$user_ID'");
+			//querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)"); 
 		}
 		
 	}
