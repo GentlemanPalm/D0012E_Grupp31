@@ -69,9 +69,33 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                     <li><a href="browseproducts.php">Shop</a></li>
                     <li><a href="addproduct.php">Skapa produkter</a></li>
                     <li><a href="createcategory.php">Skapa kategori</a></li>
-
                 </ul>
+				<script src = "search.js"></script>
+				<script src = "jquery-3.1.1.min.js"></script>
+				<script>function gohere(site){
+					if (window.XMLHttpRequest) {
+						xmlhttp = new XMLHttpRequest();
+					}else{
+						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+					}
+					xmlhttp.onreadystatechange = function(){
+						if(this.readyState == 4 && this.status == 200){
+							document.location.href = (this.responseText);
+						}
+					};
+					xmlhttp.open("GET", "getpath.php?q="+site,true);
+					xmlhttp.send();
+					}			
+				</script>
+				<form class="navbar-form navbar-right">
+					<input list = "lista"onkeyup="myFunction(this.value)" onselect="gohere(this.value)" class="form-control" id = "q" placeholder="Sök...">
+					  
+	</form>
+  <datalist id="lista">
+
+  </datalist>
             </div>
+	
         </nav></div>
     <div class="container-fluid">
         <div class="row">
