@@ -21,7 +21,7 @@ require 'template/footer.php';
 generateHeader("Beställningar");
 $products = NULL;
 $id = "";
-if (isset($_GET["id"])) {
+if (isset($_GET["id"]) && isset($_SESSION['user_ID'])) {
     $id = sanitizeString($_GET["id"]);
     $products = querySQL("SELECT * FROM Orders WHERE user_ID = $id");
 } else {

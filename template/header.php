@@ -70,10 +70,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                     <li><a href="addproduct.php">Skapa produkter</a></li>
                     <li><a href="createcategory.php">Skapa kategori</a></li>
                 </ul>
-				                <ul class="nav navbar-nav" id="usrnav">
-                    <!-- Detta bör förgöras av .ajax... -->
-                </ul>
-                <script type="text/javascript" src="usrnav.js" onload="usrnav();"></script>
+
 				<script src = "search.js"></script>
 				<script src = "jquery-3.1.1.min.js"></script>
 				<script>function gohere(site){
@@ -94,11 +91,14 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
 				<form class="navbar-form navbar-right">
 					<input list = "lista"onkeyup="myFunction(this.value)" onselect="gohere(this.value)" class="form-control" id = "q" placeholder="Sök...">
 					  
-	</form>
+	            </form>
   <datalist id="lista">
 
   </datalist>
-
+                <ul class="nav navbar-nav navbar-right" id="usrnav">
+                    <!-- Detta bör förgöras av .ajax... -->
+                </ul>
+                <script type="text/javascript" src="usrnav.js" onload="usrnav();"></script>
             </div>
 	
         </nav></div>
