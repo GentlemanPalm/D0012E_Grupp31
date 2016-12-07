@@ -28,9 +28,9 @@
 		while($row = mysqli_fetch_array($result)) {
 			if(check_quantity($id, $quantity, $con)){
 				$newQuantity = $row['quantity'] - $quantity;
-				$sql = "UPDATE Products SET quantity = '$newQuantity' WHERE ID = '$q'";
+				$sql = "UPDATE Products SET quantity = '$newQuantity' WHERE ID = '$id'";
 				mysqli_query($con, $sql);
-				$sql = "SELECT quantity FROM Cart WHERE user_ID = '$user_ID' AND item = '$q'";
+				$sql = "SELECT quantity FROM Cart WHERE user_ID = '$user_ID' AND item = '$id'";
 				$res = mysqli_query($con, $sql);
 				if ($res->num_rows > 0) {
 					$res = $res->fetch_assoc();
