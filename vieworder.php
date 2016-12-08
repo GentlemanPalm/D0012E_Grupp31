@@ -22,7 +22,6 @@ require 'template/footer.php';
 $items = NULL;
 $order = NULL;
 $id = "";
-echo "<;";
 if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
     $id = sanitizeString($_GET["id"]);
     $uid = sanitizeString($_SESSION["user_ID"]);

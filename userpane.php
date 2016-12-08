@@ -65,7 +65,9 @@ generateHeader("Inställningar för $name $lastname");
     }
 </script>
 <h1>Uppgifter</h1>
+<p>
 <a href="browseorders.php">Beställningar</a>
+</p>
 <form action = "" method = "POST">
     <?php
     if ($update_ok != 0) {
