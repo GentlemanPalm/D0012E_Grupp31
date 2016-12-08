@@ -18,46 +18,71 @@ require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
 
-generateHeader("Beställningar");
-$products = NULL;
+
+$items = NULL;
+$order = NULL;
 $id = "";
-if (isset($_GET["id"]) && isset($_SESSION['user_ID'])) {
+echo "<;";
+if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
     $id = sanitizeString($_GET["id"]);
-    $products = querySQL("SELECT * FROM Orders WHERE user_ID = $id");
+    $uid = sanitizeString($_SESSION["user_ID"]);
+    $items = querySQL("SELECT o.*, p.name FROM OrderItems o INNER JOIN Products p ON o.item=p.ID WHERE o.order_ID = $id");
+    $order = querySQL("SELECT payment_option, payment_received, discount, order_placed FROM Orders WHERE ID = $id AND user_ID = $uid");
+   /* if ($order->num_rows < 1) {
+        header("Location: browseorders.php");
+        die("Verkar inte hitta någon order på din användare...");
+    }*/
+    $order = $order->fetch_assoc();
 } else {
-    header("Location: index.php");
-    die("Ni ska inte se det här :P");
+    header("Location: browseorders.php");
+    die("Hittar inte ordern...");
 }
+
+generateHeader("Se beställning");
 
 //echo $products;
 ?>
+    <h2>Orderinformation</h2>
+    <p>Du har fått en rabatt på <?=$order["discount"]?> kr din order som lades den <?=explode(" ", $order["order_placed"])[0]?>.</p>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Produktnamn</th>
-            <th>Betyg</th>
-            <th>Pris</th>
-            <th>Redigera</th>
+            <th>Vara</th>
+            <th>Kvantitet</th>
+            <th>Pris/st</th>
+            <th>Totalpris</th>
+            <th>Skickat</th>
         </tr>
         </thead>
         <tbody>
         <?php
-        while ($prod = $products->fetch_assoc()) {
-            $org_price = $prod["price"] + $prod["price"] * $prod["vat"]; // Beräkna egentligt pris
-            $curr_price = $prod["current_price"] + $prod["current_price"] * $prod["vat"];
-            $grade = ($prod["avg_grade"] == NULL) ? 0 : $prod["avg_grade"]; // Se till att betyg inte är NULL
-            if ($curr_price < $org_price) { // Markera rea :P
-                $curr_price = "<span class=\"text-danger\">".$curr_price."</span>";
-            }
+        $tp = 0;
+        while ($item = $items->fetch_assoc()) {
+            $product = $item["name"];
+            $product = $product == NULL ? "<strike>borttagen vara</strike>" : $product;
+            $price = $item["price"];
+            $vat = $item["vat"] * $price;
+            $quantity = $item["quantity"];
+            $sent = $item["shipped"];
+            $sent = $sent == NULL ? "Ej skickat" : $sent;
+
+            $price = $price + $vat;
+            $tp += $price * $quantity;
+
             ?>
             <tr>
-            <td><a href="viewproduct.php?id=<?=$prod["ID"]?>"><?=$prod["name"]?></a></td>
-            <td><?=$grade?></td>
-            <td><?=$curr_price?></td>
-            <td><a href="editproduct.php?id=<?=$prod["ID"]?>">Redigera</a></td>
+                <td><a href="viewprodct.php?id=<?=$item["item"]?>"><?=$product?></a></td>
+                <td><?=$quantity?> st</td>
+                <td><?=$price?> kr</td>
+                <td><?=$price*$quantity?> kr</td>
+                <td><?=$sent?></td>
             </tr><?php
+        
         }?>
         </tbody>
     </table>
+    <p><strong>Betalsätt:</strong> <?=$order["payment_option"]?></p>
+    <p><strong>Belopp:</strong> <?=$tp?></p>
+    <p><strong>Mottaget:</strong> <?=$order["payment_received"]?></p>
 <?php
 generateFooter();
