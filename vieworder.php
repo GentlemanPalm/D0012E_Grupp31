@@ -51,7 +51,7 @@ generateHeader("Se beställning");
             <th>Kvantitet</th>
             <th>Pris/st</th>
             <th>Totalpris</th>
-            <th>Skickat</th>
+            <th>Skickad</th>
         </tr>
         </thead>
         <tbody>
@@ -64,14 +64,14 @@ generateHeader("Se beställning");
             $vat = $item["vat"] * $price;
             $quantity = $item["quantity"];
             $sent = $item["shipped"];
-            $sent = $sent == NULL ? "Ej skickat" : $sent;
+            $sent = $sent == NULL ? "Ej skickad" : $sent;
 
             $price = $price + $vat;
             $tp += $price * $quantity;
 
             ?>
             <tr>
-                <td><a href="viewprodct.php?id=<?=$item["item"]?>"><?=$product?></a></td>
+                <td><a href="viewproduct.php?id=<?=$item["item"]?>"><?=$product?></a></td>
                 <td><?=$quantity?> st</td>
                 <td><?=$price?> kr</td>
                 <td><?=$price*$quantity?> kr</td>
