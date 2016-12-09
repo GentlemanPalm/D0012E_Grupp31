@@ -84,4 +84,26 @@ generateHeader("Se beställning");
     <p><strong>Belopp:</strong> <?=$tp?></p>
     <p><strong>Mottaget:</strong> <?=$order["payment_received"]?></p>
 <?php
+    $altaddr = querySQL("SELECT * FROM OrderAddresses WHERE ID = $id");
+    while ($aa = $altaddr->fetch_assoc()) {
+        $addrt = "";
+        if (strcmp($aa["addr_type"], "B") == 0) {
+            $addrt = "Faktura";
+        } else {
+            $addrt = "Leverans";
+        }
+        ?>
+            <h3>Alternativ <?=$addrt?>adress</h3>
+            <p>
+                <p><strong>Namn:</strong> <?=$aa["first_name"]?> <?=$aa["last_name"]?></p>
+                <p><strong>Epost:</strong> <?=$aa["email"]?></p>
+                <p><strong>Telefon:</strong> <?=$aa["phone"]?></p>
+                <p><strong>Adress:</strong> <?=$aa["address1"]?></p>
+                <p><strong>Ort:</strong> <?=$aa["city"]?></p>
+                <p><strong>Postnummer:</strong> <?=$aa["zip"]?></p>
+            </p>
+
+        <?php
+        
+    }
 generateFooter();
