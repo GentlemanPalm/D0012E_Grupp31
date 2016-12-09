@@ -63,7 +63,7 @@ if (!$valid) {
 	 <p>Pris: <?=$price?></p>
 	 <p><?=$val["description"]?></p>
 	 	Antal: <input type = "text" value ="1" id ="quantity" name = "quantity" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
-	 	<button type="submit" class="btn btn-success" onClick="addToCart(<?php echo $id; ?>); loadCart(<?=$_SESSION['user_ID']?>)">
+	 	<button type="submit" class="btn btn-success" onClick="addToCart(<?php echo $id; ?>); loadCart(<?=$_SESSION['user_ID']?>); loadCart(<?=$_SESSION['user_ID']?>)">
 	 		Lägg till i varukorgen <span class="glyphicon glyphicon-shopping-cart"></span>
 	 	</button>
 		<div id="txtHint"></div>

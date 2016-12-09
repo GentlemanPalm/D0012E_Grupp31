@@ -11,6 +11,22 @@
 	include "template/header.php";
 	generateHeader('Kassan');
 	include "template/footer.php";
+
+	function insert_address($type, $oid) {
+		$email = sanitizeString($_POST[$type.'email']);
+		$name = sanitizeString($_POST[$type.'name']);
+		$lastname = sanitizeString($_POST[$type.'lastname']);
+		$phone = sanitizeString($_POST[$type.'phone']);
+		$town = sanitizeString($_POST[$type.'town']);
+		$zip = sanitizeString($_POST[$type.'zip']);
+		$address1 = sanitizeString($_POST[$type.'address1']);
+		$t = strtoupper($type);
+		querySQL("INSERT INTO OrderAddresses (ID, addr_type, email, first_name, last_name, phone, zip, address1, city, country)
+			VALUES ($oid, '$t', '$email', '$name', '$lastname', '$phone', '$zip', '$address1', '$town', 'Sweden')");
+		//die("INSERT INTO OrderAddresses (ID, addr_type, email, first_name, last_name, phone, zip, address1, city, country)
+		//	VALUES ($oid, '$t', '$email', '$name', '$lastname', '$phone', '$zip', '$address1', '$town', 'Sweden')");
+	}
+
 	if (isset($_POST["submit"])){
 		$email = sanitizeString($_POST['email']);
 		$name = sanitizeString($_POST['name']);
@@ -31,6 +47,13 @@
 			}
 			querySQL("DELETE FROM Cart WHERE user_ID = '$user_ID'");
 			//querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)"); 
+		
+			if (isset($_POST["billing"])) {
+				insert_address("b", $iid);
+			}
+			if (isset($_POST["shipping"])) {
+				insert_address("s", $iid);
+			}
 		}
 		
 	}
@@ -53,30 +76,46 @@
 			<hr>
 		</div>
 
-			<h1>Uppgifter:</h1>
+			<h2>Uppgifter:</h2>
 			<br>
 			<form action ="" method = "POST">
-			<div class = "col-md-4">
-				<input type = "text" class = "form-control" name = "name" id = "name" placeholder = "Förnamn" >
-			</div>
-			<div class = "col-md-4">
-				<input type = "text" class = "form-control" name = "lastname" id = "lastname" placeholder = "Efternamn" ><br>
-			</div>
-			<div class = "col-md-2"></div>
-			<div class = "col-md-2"></div>
-			<div class = "col-md-8">
-			<form action="" method = "POST">
-				<!--input type="email" class = "form-control" id ="email" name = "email" placeholder="E-post"><br>
-				<input type="text" class = "form-control" name = "address1" id = "address1" placeholder="Address"><br>
-				<input type = "text" class = "form-control" name = "zip" id = "zip" placeholder = "Postnummer"><br>
-				<input type = "text" class = "form-control" name = "town" placeholder = "Ort" id ="city"><br>
-				<input type = "text" class = "form-control" name = "phone" id ="phone" placeholder = "Telefonnummer"><br>-->
+			
+				<input type="checkbox" class="form-control" id="billing" name="billing">Jag vill ha en annan fakturaadress än min användaradress</input><br />
+				<input type = "text" disabled="disabled" class = "form-control bill" name = "bname" id = "name" placeholder = "Förnamn" ><br />
+				<input type = "text" disabled="disabled" class = "form-control bill" name = "blastname" id = "lastname" placeholder = "Efternamn" ><br>
+				<input type="email" disabled="disabled" class = "form-control bill" id ="email" name = "bemail" placeholder="E-post"><br>
+				<input type="text" disabled="disabled" class = "form-control bill" name = "baddress1" id = "address1" placeholder="Address"><br>
+				<input type = "text" disabled="disabled" class = "form-control bill" name = "bzip" id = "zip" placeholder = "Postnummer"><br>
+				<input type = "text" disabled="disabled" class = "form-control bill" name = "btown" placeholder = "Ort" id ="city"><br>
+				<input type = "text" disabled="disabled" class = "form-control bill" name = "bphone" id ="phone" placeholder = "Telefonnummer"><br>
+
+				<input type="checkbox" class="form-control" id="shipping" name="shipping">Jag vill ha en annan leveransadress än min användaradress</input><br />
+				<input type = "text" disabled="disabled" class = "form-control ship" name = "sname" id = "name" placeholder = "Förnamn" ><br />
+				<input type = "text" disabled="disabled" class = "form-control ship" name = "slastname" id = "lastname" placeholder = "Efternamn" ><br>
+				<input type="email" disabled="disabled" class = "form-control ship" id ="email" name = "semail" placeholder="E-post"><br>
+				<input type="text" disabled="disabled" class = "form-control ship" name = "saddress1" id = "address1" placeholder="Address"><br>
+				<input type = "text" disabled="disabled" class = "form-control ship" name = "szip" id = "zip" placeholder = "Postnummer"><br>
+				<input type = "text" disabled="disabled" class = "form-control ship" name = "stown" placeholder = "Ort" id ="city"><br>
+				<input type = "text" disabled="disabled" class = "form-control ship" name = "sphone" id ="phone" placeholder = "Telefonnummer"><br>
+
+
 				<input type = "submit" name = "submit" value="Lägg order" class="btn btn-success btn-block"><br><br>
 			</form>
-				
-			</div>
-			</form>
-			<div class = "col-md-2"></div>
+			<script type="text/javascript">
+				$("#billing").click(function () {
+					var isChecked = this.checked;
+					$(".bill").each(function () {
+						$(this).prop("disabled", !isChecked);
+					}); // http://stackoverflow.com/questions/24689636/enable-inputs-from-bootstrap-checkbox
+				});
+
+				$("#shipping").click(function () {
+					var isChecked = this.checked;
+					$(".ship").each(function () {
+						$(this).prop("disabled", !isChecked);
+					}); // http://stackoverflow.com/questions/24689636/enable-inputs-from-bootstrap-checkbox
+				});
+			</script>
 		</div>
 			
 	</div>
