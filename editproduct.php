@@ -108,7 +108,7 @@ $res = $result->fetch_assoc();
     <input type = "hidden" name = "imgid" value="<?=$imgid?>"/>
 
     
-    <button type="submit" name = "submit" class = "btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Redigera vara!</button><a href="deleteproduct.php?id=<?=$id?>"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Ta bort</button></a>
+    <button type="submit" name = "submit" class = "btn btn-success"><span class="glyphicon glyphicon-pencil"></span> Redigera vara!</button><a href="deleteproduct.php?id=<?=$id?>"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Ta bort</button></a>
     <hr>
 </form>
 <?php
