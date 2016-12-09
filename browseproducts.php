@@ -18,6 +18,9 @@ require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
 
+if ($_SESSION['user_ID'] == ""){
+	header("Location:login.php");
+}
 generateHeader("Produktlista");
 $products = NULL;
 if (isset($_GET["id"])) {

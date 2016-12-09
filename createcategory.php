@@ -2,6 +2,10 @@
 	require_once 'functions.php';
 	require 'template/header.php';
 	require 'template/footer.php';
+	generateHeader("Skapa kategori");
+	if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 	$email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
 	if (isset($_POST["submit"])){
@@ -16,7 +20,7 @@
 			$query = querySQL("INSERT INTO Categories(title, img_path) VALUES ('$title', '$img')");
 		}
 	}
-	generateHeader("Skapa kategori");
+
 ?>
 	<h1>Registrering</h1>
 		<form action = "" method = "POST">

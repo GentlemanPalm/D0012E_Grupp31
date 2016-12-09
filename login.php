@@ -1,7 +1,10 @@
 <?php
-	session_start();
 	include "functions.php";
+	require 'template/header.php';
+	require 'template/footer.php';
+	generateHeader("Logga in");
 	$error = $email = $password = "";
+
 	
   if (isset($_POST['email']) && isset($_POST['password']))
   {
@@ -31,16 +34,16 @@
   }
 ?>
 <!DOCTYPE html>
-<html>
-	<head>
-	</head>
-	<body>
-		<h1>Login</h1>
+
+		<h1>Logga in</h1>
 		<form action = "" method = "POST">
-			Username: <input type = "text" name = "email"/><br><br>
-			Password: <input type = "password" name = "password"/><br><br>
-			<input type = "submit" name = "submit" value = "Logga in"/>
+			<div class = "col-xs-4">
+				Användarnamn: <input class = "form-control" type = "text" name = "email" placeholder = "Epost"/>
+				Lösenord: <input  class = "form-control" type = "password" name = "password" placeholder = "Lösenord"/>
+<br>				<input type = "submit" name = "submit" value = "Logga in" class = "btn btn-lg btn-success"/><br>
+				<a href="register.php">Eller registrera dig</a>
+			</div>
 		</form>
-	
-	</body>
-</html>
+
+<?php
+generateFooter();?>

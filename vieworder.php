@@ -17,7 +17,10 @@
 require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
-
+generateHeader("Visa order");
+if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 
 $items = NULL;
 $order = NULL;
@@ -37,7 +40,6 @@ if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
     die("Hittar inte ordern...");
 }
 
-generateHeader("Se beställning");
 
 //echo $products;
 ?>

@@ -17,7 +17,10 @@
 require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
-
+generateHeader("Hantera ordrar");
+if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 
 $orders = NULL;
 $id = "";
@@ -29,7 +32,6 @@ if (isset($_SESSION["user_ID"])) {
     die("Du måste logga in.");
 }
 
-generateHeader("Beställiningar");
 
 //echo $products;
 ?>

@@ -2,6 +2,10 @@
 require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
+generateHeader("Lägg till produkt");
+if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 global $connection;
 $email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 //Undviker SQL-injection
@@ -35,7 +39,7 @@ if(!isset($_GET["id"])) {
     die("Inget ID funnet!");
 }
 $id = $_GET["id"];
-generateHeader("Lägg till produkt");
+
 $result = querySQL("SELECT name, quantity, description, price, vat, current_price, category_ID FROM Products WHERE ID = $id");
 if($result->num_rows != 1) {
     die("Inget giltigt ID funnet!");

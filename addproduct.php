@@ -1,8 +1,11 @@
 <?php
-	session_start();
 	require_once 'functions.php';
 	require 'template/header.php';
 	require 'template/footer.php';
+	generateHeader("Lägg till produkt");
+	if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 	$email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
 	if (isset($_POST["submit"])){
@@ -29,7 +32,6 @@
 			}
 		}
 	}
-	generateHeader("Lägg till produkt");
 ?>
 <script>
 		function isNumber(evt) {

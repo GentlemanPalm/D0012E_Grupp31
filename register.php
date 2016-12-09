@@ -1,5 +1,8 @@
 <?php
 	require_once 'functions.php';
+	require 'template/header.php';
+	require 'template/footer.php';
+	generateHeader("Registrera");
 	$email = $orgnr = $password = $name = $lastname = $securityNumber = $phonenumber = $town = $zipcode = $address1 = $address2 = $addressco = "";
 	//Undviker SQL-injection
 	if (isset($_POST["submit"])){
@@ -37,8 +40,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html>
-	<head>
+
 	<script>
 		function isNumber(evt) {
 			evt = (evt) ? evt : window.event;
@@ -49,24 +51,24 @@
 			return true;
 			}
 	</script>
-	</head>
-	<body>
+
 	<h1>Registrering</h1>
+	<div class = "col-xs-4">
 		<form action = "" method = "POST" accept-charset="utf-8">
 			E-post:
-			<input type = "text" name = "email"/><br><br>
+			<input type = "text" class = "form-control" name = "email"/>
 			Lösendord:
-			<input type = "password" name = "password"/><br><br>
+			<input type = "password" class = "form-control" name = "password"/>
 			Bekräfta lösenord:
-			<input type = "password" name = "password_bek"/><br><br>
+			<input type = "password" name = "password_bek" class = "form-control"/>
 			<hr>
 			Namn:
-			<input type = "text" name = "name"/><br><br>
+			<input type = "text" name = "name" class = "form-control"/>
 			Efternamn:
-			<input type = "text" name = "lastname"/><br><br>
+			<input type = "text" class = "form-control" name = "lastname"/>
 
 			Födelsedatum:
-			<select id = "selectBox" name = "year">
+			<select id = "selectBox" class = "form-control" name = "year">
 				<option value="">YYYY</option>
 				<?php
 					for ($i = 2016; $i>=1900; $i--){
@@ -74,7 +76,7 @@
 					}
 				?>
 			</select>
-			<select name = "month">
+			<select name = "month" class = "form-control">
 				<option value="">MM</option>
 				<?php
 					for ($i = 1; $i<=12; $i++){
@@ -85,7 +87,7 @@
 					}
 				?>
 			</select>
-			<select name = "day">
+			<select name = "day" class = "form-control">
 				<option value="">DD</option>
 				<?php
 					for ($i = 1; $i<=31; $i++){
@@ -97,27 +99,27 @@
 				?>
 				
 			</select>
-			-
-			<input type = "text" name = "securityNumber" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
+			
+			<input type = "text" name = "securityNumber" class = "form-control" onkeypress="return isNumber(event)" maxlength = "4" size = "4" />
 			Telefonnummer:
-			<input type = "text" name = "phonenumber" onkeypress="return isNumber(event)" maxlength = "16" size = "16" /><br><br>
+			<input type = "text" name = "phonenumber" class = "form-control" onkeypress="return isNumber(event)" maxlength = "16" size = "16" />
 			<hr>
 			Land:
-			<select>
-				<option value = "sweden">Sverige</option>
-			</select><br><br>
+			<select class = "form-control">
+				<option value = "sweden" class = "form-control">Sverige</option>
+			</select>
 			Postort:
-			<input type = "text" name = "town"/><br><br>
+			<input type = "text" name = "town" class = "form-control"/>
 			Postnummer:
-			<input type = "text" name = "zipcode" onkeypress="return isNumber(event)" maxlength = "5" size = "5" /><br><br>
+			<input type = "text" name = "zipcode" class = "form-control" onkeypress="return isNumber(event)" maxlength = "5" size = "5" />
 			Address 1:
-			<input type = "text" name = "address1"/><br><br>
-			<input type = "submit" name = "submit" value = "Registrera mig"/>
+			<input type = "text" name = "address1" class = "form-control"/><br>
+			<input type = "submit" class = "btn btn-lg btn-success" name = "submit" value = "Registrera mig" class = "form-control"/>
 			<hr>
 
-
+			
 			
 			
 		</form>
-	</body>
-</html>
+		</div>
+<?php generateFooter();?>

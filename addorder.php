@@ -1,15 +1,11 @@
 <?php
-	session_start();
-		$user_ID = $session_ID = "";
-		if(isset($_SESSION['user_ID'])){
-			$user_ID = $_SESSION['user_ID'];
-		}else{
-			$session_ID = session_ID();
-		}
 	require "functions.php";
 	global $connection;
 	include "template/header.php";
 	generateHeader('Kassan');
+	if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}	
 	include "template/footer.php";
 
 	function insert_address($type, $oid) {

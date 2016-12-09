@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 require_once 'functions.php';
 require 'template/header.php';
@@ -22,6 +22,9 @@ if ($valid) {
 
 
 generateHeader($valid ? $val["name"] : "Proukten kunde inte hittas");
+if ($_SESSION['user_ID'] == ""){
+		header("Location:login.php");
+	}
 ?>
 <script>
 	function isNumber(evt) { // Emils script från register.php. Borde vi flytta det till en egen fil istället för copy paste?
