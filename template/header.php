@@ -67,8 +67,13 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                <ul class="nav navbar-nav">
                     <li><a href="index.php">Start</a></li>
                     <li><a href="browseproducts.php">Shop</a></li>
-                    <li><a href="addproduct.php">Skapa produkter</a></li>
-                    <li><a href="createcategory.php">Skapa kategori</a></li>
+					<?php
+					if($_SESSION['access'] == "3"){
+					echo "<li><a href='addproduct.php'>Skapa produkter</a></li>
+                    <li><a href='createcategory.php'>Skapa kategori</a></li>";
+					}
+					?>
+                    
                 </ul>
 
 				<script src = "search.js"></script>

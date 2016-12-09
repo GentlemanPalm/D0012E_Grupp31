@@ -38,7 +38,12 @@ if (isset($_GET["id"])) {
             <th>Produktnamn</th>
             <th>Betyg</th>
             <th>Pris</th>
-            <th>Redigera</th>
+							<?php
+				if($_SESSION['access'] == "3"){
+                echo "<th>Redigera</th>";
+				}
+				?>
+           
         </tr>
         </thead>
         <tbody>
@@ -55,7 +60,11 @@ if (isset($_GET["id"])) {
                 <td><a href="viewproduct.php?id=<?=$prod["ID"]?>"><?=$prod["name"]?></a></td>
                 <td><?=$grade?></td>
                 <td><?=$curr_price?></td>
-                <td><a href="editproduct.php?id=<?=$prod["ID"]?>">Redigera</a></td>
+                <?php
+				if($_SESSION['access'] == "3"){
+                echo "<td><a href='editproduct.php?id=$prod[ID]'>Redigera</a></td>";
+				}
+				?>
             </tr><?php
         }?>
         </tbody>

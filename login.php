@@ -15,7 +15,7 @@
         $error = "Not all fields were entered<br>";
     else
     {
-      $result = querySQL("SELECT email,passw, id FROM Users
+      $result = querySQL("SELECT email,passw,id,access FROM Users
         WHERE email='$email' AND passw='$password'");
 		
       if ($result->num_rows == 0)
@@ -27,6 +27,7 @@
       {
 		$val = $result->fetch_assoc();
 		$_SESSION['user_ID'] = $val['id'];
+		$_SESSION['access'] = $val['access'];
 		//Start sessions here.
 		header ("Location: browseproducts.php") ;
       }
