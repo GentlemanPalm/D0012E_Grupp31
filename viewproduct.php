@@ -72,6 +72,9 @@ if (!$valid) {
 		<div id="txtHint"></div>
 		<h3>Recensioner</h3>
 		<div id="reviews"></div>
+		<div id="addreview">
+			<button type="btn form-control" id="newreview">Recencera!</button>
+		</div>
 		<h3>Kommentarer</h3>
 		<div id="comments" onload="updateComments();"></div>
 		<div id="addcomment">
