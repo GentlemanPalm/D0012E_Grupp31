@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 require_once 'functions.php';
 require 'template/header.php';
@@ -22,9 +22,6 @@ if ($valid) {
 
 
 generateHeader($valid ? $val["name"] : "Proukten kunde inte hittas");
-if ($_SESSION['user_ID'] == ""){
-		header("Location:login.php");
-	}
 ?>
 <script>
 	function isNumber(evt) { // Emils script från register.php. Borde vi flytta det till en egen fil istället för copy paste?
@@ -40,6 +37,9 @@ if ($_SESSION['user_ID'] == ""){
 	window.onload = function(){
 			getQuantity('<?php echo $id;?>');
 			loadCart(<?=$_SESSION['user_ID']?>);
+	}
+	function getPID() {
+		return "<?=$id?>";
 	}
 	</script>
 <script src="addtocart.js"></script>
@@ -70,6 +70,14 @@ if (!$valid) {
 	 		Lägg till i varukorgen <span class="glyphicon glyphicon-shopping-cart"></span>
 	 	</button>
 		<div id="txtHint"></div>
+		<h3>Recensioner</h3>
+		<div id="reviews"></div>
+		<h3>Kommentarer</h3>
+		<div id="comments" onload="updateComments();"></div>
+		<div id="addcomment">
+			<button type="btn form-control" id="newcomment">Ny kommentar</button>
+		</div>
+		<script type="text/javascript" src="commentmanager.js"></script>
 	<?php
 }
 generateFooter();
