@@ -17,19 +17,21 @@
 require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
-generateHeader("Visa order");
-if ($_SESSION['user_ID'] == ""){
-		header("Location:login.php");
-	}
+
+$admin = false;
 
 $items = NULL;
 $order = NULL;
 $id = "";
+
 if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
+    if (isset($_GET["admin"]) && $_SESSION["access"] > 1) {
+        $admin = true;
+    }
     $id = sanitizeString($_GET["id"]);
     $uid = sanitizeString($_SESSION["user_ID"]);
     $items = querySQL("SELECT o.*, p.name FROM OrderItems o INNER JOIN Products p ON o.item=p.ID WHERE o.order_ID = $id");
-    $order = querySQL("SELECT payment_option, payment_received, discount, order_placed FROM Orders WHERE ID = $id AND user_ID = $uid");
+    $order = querySQL("SELECT payment_option, payment_received, discount, order_placed FROM Orders WHERE ID = $id".($admin ? "" : " AND user_ID = $uid"));
    /* if ($order->num_rows < 1) {
         header("Location: browseorders.php");
         die("Verkar inte hitta någon order på din användare...");
@@ -40,7 +42,7 @@ if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
     die("Hittar inte ordern...");
 }
 
-
+generateHeader("Visa order");
 //echo $products;
 ?>
     <h2>Orderinformation</h2>
@@ -76,15 +78,34 @@ if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
                 <td><?=$quantity?> st</td>
                 <td><?=$price?> kr</td>
                 <td><?=$price*$quantity?> kr</td>
-                <td><?=$sent?></td>
+                <td class="sent" id="sent<?=$item["ID"]?>"><?=$sent?><?php if ($admin) {?>
+                <button class="senditem" onclick="sendItem(<?=$item["ID"]?>)">Skicka?</button>
+                <?php } ?></td>
             </tr><?php
         
         }?>
         </tbody>
     </table>
+    <script type="text/javascript">
+    function sendItem(id) {
+        $.ajax({
+            url: "senditem.php?id="+id
+        }).done(function(data) {
+            $("#sent"+id).html("Skickad!");
+        });
+    }
+    </script>
     <p><strong>Betalsätt:</strong> <?=$order["payment_option"]?></p>
-    <p><strong>Belopp:</strong> <?=$tp?></p>
+    <p><strong>Belopp:</strong> <?=$tp-$order["discount"]?></p>
     <p><strong>Mottaget:</strong> <?=$order["payment_received"]?></p>
+    <?php if ($order["payment_received"] - $order["discount"] < $tp) {?>
+    <form action="makepayment.php" method="POST">
+        <input type="number" class="form-control" name="amount" step="0.01" placeholder="Belopp" /><br />
+        <input type="hidden" name="id" value="<?=$id?>" />
+        <button type="submit" name="submit" class="form-control btn btn-primary">Betala!</button>
+    </form>
+    <?php } ?>
+
 <?php
     $altaddr = querySQL("SELECT * FROM OrderAddresses WHERE ID = $id");
     while ($aa = $altaddr->fetch_assoc()) {

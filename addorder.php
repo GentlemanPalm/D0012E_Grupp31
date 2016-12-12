@@ -35,7 +35,7 @@
 			echo "Not all fields were entered.";
 		}else{
 			$query = querySQL("INSERT INTO Orders (user_ID, payment_option, payment_received, order_placed, discount)
-					VALUES ('$user_ID', 'Faktura', 'FALSE', NOW(), 0)");
+					VALUES ('$user_ID', 'Faktura', 0.00, NOW(), 0)");
 			$iid = mysqli_insert_id($connection);
 			$query = querySQL("SELECT p.ID, c.quantity, p.price, p.vat FROM Cart c INNER JOIN Products p ON c.item=p.ID WHERE c.user_ID = $user_ID");
 			while ($res = $query->fetch_assoc()) {

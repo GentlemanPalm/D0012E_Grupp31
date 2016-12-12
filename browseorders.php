@@ -18,15 +18,21 @@ require_once 'functions.php';
 require 'template/header.php';
 require 'template/footer.php';
 generateHeader("Hantera ordrar");
-if ($_SESSION['user_ID'] == ""){
-		header("Location:login.php");
-	}
 
 $orders = NULL;
 $id = "";
+$admin = false;
+
+
+
 if (isset($_SESSION["user_ID"])) {
-    $id = sanitizeString($_SESSION["user_ID"]);
-    $orders = querySQL("SELECT * FROM Orders WHERE user_ID = $id ORDER BY order_placed DESC");
+    if($_SESSION["access"] > 1 && isset($_GET["admin"])) {
+        $admin = true;
+        $orders = querySQL("SELECT * FROM Orders ORDER BY order_placed DESC");
+    } else {
+        $id = sanitizeString($_SESSION["user_ID"]);
+        $orders = querySQL("SELECT * FROM Orders WHERE user_ID = $id ORDER BY order_placed DESC");
+    }
 } else {
     header("Location: login.php");
     die("Du måste logga in.");
@@ -40,6 +46,7 @@ if (isset($_SESSION["user_ID"])) {
         <tr>
             <th>Beställning</th>
             <th>Pris</th>
+            <?=$admin ? "<th>% skickad</th>" : ""?>
         </tr>
         </thead>
         <tbody>
@@ -54,10 +61,25 @@ if (isset($_SESSION["user_ID"])) {
             $prices = querySQL("SELECT SUM(price) as totp, SUM(price * vat) as totv FROM OrderItems WHERE order_ID = $ord[ID]")->fetch_assoc();
             $price = $prices["totp"];
             $vat = $prices["totv"];
+
+            $paid = ($price + $vat) - $ord["payment_received"]  <= 0;
+
+            $sent = querySQL("SELECT count(*) AS tots, (SELECT count(*) AS totns FROM OrderItems WHERE order_ID = $ord[ID] AND shipped IS NULL) AS totns FROM OrderItems WHERE order_ID = $ord[ID] AND shipped IS NOT NULL")->fetch_assoc();
+            $sent_per = (int) (100.00 * $sent["tots"] / ($sent["tots"] + $sent["totns"]));
+            $sent_per = $sent_per == false ? 0.00 : $sent_per;
             ?>
             <tr>
-                <td><a href="vieworder.php?id=<?=$ord["ID"]?>"><?=$ord_id."#".$dc?></a></td>
+            <?php if ($admin) { ?>
+            <td><a href="vieworder.php?id=<?=$ord["ID"]?>&admin=1"><?=($ord["user_ID"] == NULL ? "<b>D</b>" : $ord["user_ID"])."#".$ord_id."#".$dc?></a></td>
+            <?php } else { ?>
+            <td><a href="vieworder.php?id=<?=$ord["ID"]?>"><?=$ord_id."#".$dc?></a></td>
+            <?php } ?>
+
                 <td><?=$price+$vat?> kr</td>
+                <?php if ($admin) { ?>
+                    <td><?=$sent_per.'%'?></td>
+                    <td><?=$paid ? "Betald" : "Ej betald"?></td>
+                <?php } ?>
             </tr><?php
             $sd = $ord_id;
             $dc = $dc + 1;
