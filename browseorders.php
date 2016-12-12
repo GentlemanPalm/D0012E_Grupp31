@@ -47,6 +47,7 @@ if (isset($_SESSION["user_ID"])) {
             <th>Beställning</th>
             <th>Pris</th>
             <?=$admin ? "<th>% skickad</th>" : ""?>
+            <th>Betald</th>
         </tr>
         </thead>
         <tbody>
@@ -58,11 +59,11 @@ if (isset($_SESSION["user_ID"])) {
             if (strcmp($sd, $ord_id) != 0) {
                 $dc = 0;
             }  
-            $prices = querySQL("SELECT SUM(price) as totp, SUM(price * vat) as totv FROM OrderItems WHERE order_ID = $ord[ID]")->fetch_assoc();
+            $prices = querySQL("SELECT SUM(price * quantity) as totp, SUM(price * quantity * vat) as totv FROM OrderItems WHERE order_ID = $ord[ID]")->fetch_assoc();
             $price = $prices["totp"];
             $vat = $prices["totv"];
 
-            $paid = ($price + $vat) - $ord["payment_received"]  <= 0;
+            $paid = ($price + $vat) - $ord["payment_received"] - $ord["discount"]  <= 0;
 
             $sent = querySQL("SELECT count(*) AS tots, (SELECT count(*) AS totns FROM OrderItems WHERE order_ID = $ord[ID] AND shipped IS NULL) AS totns FROM OrderItems WHERE order_ID = $ord[ID] AND shipped IS NOT NULL")->fetch_assoc();
             $sent_per = (int) (100.00 * $sent["tots"] / ($sent["tots"] + $sent["totns"]));
@@ -75,11 +76,12 @@ if (isset($_SESSION["user_ID"])) {
             <td><a href="vieworder.php?id=<?=$ord["ID"]?>"><?=$ord_id."#".$dc?></a></td>
             <?php } ?>
 
-                <td><?=$price+$vat?> kr</td>
+                <td><?=$price+$vat-$ord["discount"]?> kr</td>
                 <?php if ($admin) { ?>
                     <td><?=$sent_per.'%'?></td>
-                    <td><?=$paid ? "Betald" : "Ej betald"?></td>
                 <?php } ?>
+                    <td><?=$paid ? "Betald" : "Ej betald"?></td>
+                
             </tr><?php
             $sd = $ord_id;
             $dc = $dc + 1;
