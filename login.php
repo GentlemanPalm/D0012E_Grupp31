@@ -34,8 +34,6 @@
     }
   }
 ?>
-<!DOCTYPE html>
-
 		<h1>Logga in</h1>
 		<form action = "" method = "POST">
 			<div class = "col-xs-4">

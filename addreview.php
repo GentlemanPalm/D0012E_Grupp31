@@ -6,9 +6,7 @@ if (!isset($_SESSION["user_ID"])) {
 	echo "Du måste vara inloggad för att komma åt denna funktion!";
 	die();
 }
-echo "Inloggad. ";
 if (isset($_POST["grade"])) {
-	echo "Recencerat. ";
 	$grade = sanitizeString($_POST["grade"]);
 	$uid = sanitizeString($_SESSION["user_ID"]);
 	$pid = sanitizeString($_POST["pid"]);
@@ -16,7 +14,6 @@ if (isset($_POST["grade"])) {
 	$par = "NULL";
 	$cid = "NULL";
 	if (isset($_POST["writtenreview"])) { 
-		echo "Skrivet. ";
 		$title = sanitizeString($_POST["title"]);
 		$content = sanitizeString($_POST["content"]);
 		querySQL("INSERT INTO Comments (title, description, parent, product_ID, user_ID, approved)
@@ -24,13 +21,21 @@ if (isset($_POST["grade"])) {
 		global $connection;
 		$cid = mysqli_insert_id($connection);
 	}
-	echo $pid;
 	querySQL("INSERT INTO Grades (grade, product_ID, user_ID, comment_ID)
 		VALUES ('$grade', '$pid', $uid, $cid)");
 	querySQL("UPDATE Products SET avg_grade = (SELECT AVG(grade) FROM Grades WHERE product_ID='$pid') WHERE ID = '$pid'");
-	echo "Infört. ";
 } else {
 	$cid = "reviewform";
+	$uid = sanitizeString($_SESSION["user_ID"]);
+	$pid = sanitizeString($_GET["pid"]);
+	if (querySQL("SELECT user_ID FROM Grades WHERE user_ID = $uid AND product_ID = $pid")->num_rows > 0) {
+		?>	
+			<div class="alert alert-danger">
+  				<strong>OBS!</strong> Du har redan recencerat denna vara!
+			</div>
+		<?php
+		die();
+	} 
 ?>
 	<form action="addreview.php" method="POST" id="<?=$cid?>">
 		<input type="number" class="form-control" id="grade" name="grade" placeholder="Betyg på en skala mellan 1 och 10"><br />
