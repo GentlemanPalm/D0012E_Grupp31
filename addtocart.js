@@ -13,6 +13,7 @@ function addToCart(str){
 			if(this.readyState == 4 && this.status == 200){
 				document.getElementById("txtHint").innerHTML = this.responseText;
 				getQuantity(str);
+				loadCart(str);
 			}
 		};
 		xmlhttp.open("GET", "getproduct.php?q="+y,true);

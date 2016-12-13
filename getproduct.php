@@ -28,6 +28,7 @@
 		while($row = mysqli_fetch_array($result)) {
 			if(check_quantity($id, $quantity, $con)){
 				$newQuantity = $row['quantity'] - $quantity;
+				mysqli_query($con, "START TRANSACTION");
 				$sql = "UPDATE Products SET quantity = '$newQuantity' WHERE ID = '$id'";
 				mysqli_query($con, $sql);
 				$sql = "SELECT quantity FROM Cart WHERE user_ID = '$user_ID' AND item = '$id'";
@@ -41,6 +42,7 @@
 					$sql="INSERT INTO Cart(user_ID, item, quantity) VALUES ('$user_ID', '$id', '$quantity')";
 					mysqli_query($con, $sql);
 				}
+				mysqli_query($con, "COMMIT");
 				echo "Produkt tillagd i varukorgen";
 			}else{
 				echo "Vi har tyvärr inte tillräckligt många i lager.";
