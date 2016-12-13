@@ -1,14 +1,10 @@
 <?php
-session_start();
+		Session_start();
 		require "connect.php";
 		global $connection;
 		$total= "0";
-		$user_ID = $session_ID = "";
-		if(isset($_SESSION['user_ID']) && !($_SESSION['user_ID']== 0)){
-			$user_ID = $_SESSION['user_ID'];
-		}else{
-			$session_ID = session_ID();
-		}
+		$user_ID = "";
+		$user_ID = $_SESSION['user_ID'];
 		$id= $_GET['q'];
 
 		
