@@ -24,13 +24,6 @@
 	}
 
 	if (isset($_POST["submit"])){
-		$email = sanitizeString($_POST['email']);
-		$name = sanitizeString($_POST['name']);
-		$lastname = sanitizeString($_POST['lastname']);
-		$telefonnummer = sanitizeString($_POST['phone']);
-		$town = sanitizeString($_POST['town']);
-		$zipcode = sanitizeString($_POST['zip']);
-		$address1 = sanitizeString($_POST['address1']);
 		if ($user_ID == ""){
 			echo "Not all fields were entered.";
 		}else{
