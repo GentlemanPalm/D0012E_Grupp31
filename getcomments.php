@@ -23,7 +23,8 @@ function print_children($pid, $parent, $depth=0) {
 			<?php
 				if ($_SESSION["access"] > 1) {
 					?>
-					<a href="approvecomment.php?id=<?=$com["ID"]?>&pid=<?=$_GET["pid"]?>" style="margin-left: 10px">Approve</a>
+					<a href="approvecomment.php?id=<?=$com["ID"]?>&pid=<?=$_GET["pid"]?>" class="text-success" style="margin-left: 10px">Approve</a>
+					<a href="removecomment.php?id=<?=$com["ID"]?>&pid=<?=$_GET["pid"]?>" class="text-danger" style="margin-left: 10px">Delete</a>
 					<?php
 				}
 			?></small></p>
