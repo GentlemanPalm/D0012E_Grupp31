@@ -9,6 +9,7 @@ if(!isset($_SESSION["user_ID"]) || !isset($_POST["submit"])) {
 
 $id = sanitizeString($_POST["id"]);
 $amount = abs(sanitizeString($_POST["amount"]));
+querySQL("START TRANSACTION");
 $prices = querySQL("SELECT SUM(price * quantity) as totp, SUM(price * quantity * vat) as totv FROM OrderItems WHERE order_ID = '$id'")->fetch_assoc();
 $price = $prices["totp"];
 $vat = $prices["totv"]; 
@@ -19,5 +20,5 @@ $tot = $price + $vat - $discount;
 
 $tot = min($recv, $tot);
 querySQL("UPDATE Orders SET payment_received = $tot WHERE ID = '$id'");
-
+querySQL("COMMIT");
 header("Location: vieworder.php?id=$id");
