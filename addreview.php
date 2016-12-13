@@ -13,6 +13,7 @@ if (isset($_POST["grade"])) {
 
 	$par = "NULL";
 	$cid = "NULL";
+	querySQL("START TRANSACTION");
 	if (isset($_POST["writtenreview"])) { 
 		$title = sanitizeString($_POST["title"]);
 		$content = sanitizeString($_POST["content"]);
@@ -24,6 +25,7 @@ if (isset($_POST["grade"])) {
 	querySQL("INSERT INTO Grades (grade, product_ID, user_ID, comment_ID)
 		VALUES ('$grade', '$pid', $uid, $cid)");
 	querySQL("UPDATE Products SET avg_grade = (SELECT AVG(grade) FROM Grades WHERE product_ID='$pid') WHERE ID = '$pid'");
+	querySQL("COMMIT");
 } else {
 	$cid = "reviewform";
 	$uid = sanitizeString($_SESSION["user_ID"]);

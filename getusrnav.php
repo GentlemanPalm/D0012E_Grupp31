@@ -1,6 +1,7 @@
 <?php
 /*
  Till för att generera användar-html som kan visas. Antingen visas en logga-in knapp eller en länk till användarsidorna.
+ Ändrar för att...
 */
 require "connect.php"; 
 session_start();
