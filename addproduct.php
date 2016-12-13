@@ -51,7 +51,7 @@
 			Ursprungligt lagersaldo:
 			<input type = "text" name = "quantity" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
 
-			Produktbeskrivning (tillåter HTML):
+			Produktbeskrivning (tillåter HTML):<br />
 			<textarea name="desc" cols="40" rows="10"></textarea><br /><br />
 			
 			Pris exklusive moms:
