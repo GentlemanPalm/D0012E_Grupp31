@@ -46,4 +46,4 @@
 		</form>
 
 <?php
-generateFooter();?>
+generateFooter($generate_cart = false);?>

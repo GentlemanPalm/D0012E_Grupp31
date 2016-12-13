@@ -89,9 +89,9 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                     xmlhttp.send();
                     }           
                 </script>
-                <form class="navbar-form navbar-right navbar-top">
-                    <input list = "lista"onkeyup="myFunction(this.value)" onselect="gohere(this.value)" class="form-control" id = "q" placeholder="Sök...">
-                      
+                <form class="navbar-form navbar-right navbar-top" method = "GET" action = "searchproducts.php">
+                    <input list = "lista"onkeyup="myFunction(this.value)" name = "q" class="form-control" id = "q" placeholder="Sök...">
+                    <button type = "submit" class = "btn btn-default"><span class = "glyphicon glyphicon-search"></span></button>
                 </form>
   <datalist id="lista">
 

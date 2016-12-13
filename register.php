@@ -122,4 +122,4 @@
 			
 		</form>
 		</div>
-<?php generateFooter();?>
+<?php generateFooter($generate_cart = false);?>
