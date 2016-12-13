@@ -23,6 +23,7 @@ $admin = false;
 $items = NULL;
 $order = NULL;
 $id = "";
+$uid = "";
 
 if (isset($_SESSION["user_ID"]) && isset($_GET["id"])) {
     if (isset($_GET["admin"]) && $_SESSION["access"] > 1) {
@@ -116,7 +117,7 @@ generateHeader("Visa order");
             $addrt = "Leverans";
         }
         ?>
-            <h3>Alternativ <?=$addrt?>adress</h3>
+            <h3><?=$addrt?>adress</h3>
             <p>
                 <p><strong>Namn:</strong> <?=$aa["first_name"]?> <?=$aa["last_name"]?></p>
                 <p><strong>Epost:</strong> <?=$aa["email"]?></p>
@@ -128,5 +129,23 @@ generateHeader("Visa order");
 
         <?php
         
+    }
+    if ($admin) { 
+    $altaddr = querySQL("SELECT * FROM Users WHERE ID = $uid");
+    while ($aa = $altaddr->fetch_assoc()) {
+        $addrt = "Användar";
+        ?>
+            <h3><?=$addrt?>adress</h3>
+            <p>
+                <p><strong>Namn:</strong> <?=$aa["first_name"]?> <?=$aa["last_name"]?></p>
+                <p><strong>Epost:</strong> <?=$aa["email"]?></p>
+                <p><strong>Telefon:</strong> <?=$aa["phone"]?></p>
+                <p><strong>Adress:</strong> <?=$aa["address1"]?></p>
+                <p><strong>Ort:</strong> <?=$aa["city"]?></p>
+                <p><strong>Postnummer:</strong> <?=$aa["zip"]?></p>
+            </p>
+
+        <?php
+        }
     }
 generateFooter();
