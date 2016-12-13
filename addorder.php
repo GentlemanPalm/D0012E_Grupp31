@@ -112,5 +112,5 @@
 	</div>
 
 <?php
-	generateFooter();
+	generateFooter($generate_cart=false);
 ?>

@@ -55,11 +55,7 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
         <?php
     } ?>
     <body onload="loadCart(<?php echo $_SESSION['user_ID'];?>);">
-    <div class="jumbotron" stype="margin-left:10pt;">
-        <h1>Kontorsshoppen.se - <?=$title?></h1>
-        <p>Kontorsvaror för den prisblinde kunden</p>
-    
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 0px; padding-bottom: 0px;">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">kontorsshoppen.se</a>
@@ -67,46 +63,51 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                <ul class="nav navbar-nav">
                     <li><a href="index.php">Start</a></li>
                     <li><a href="browseproducts.php">Shop</a></li>
-					<?php
-					if(isset($_SESSION["access"]) && $_SESSION['access'] == "3"){
-					echo "<li><a href='addproduct.php'>Skapa produkter</a></li>
+                    <?php
+                    if(isset($_SESSION["access"]) && $_SESSION['access'] == "3"){
+                    echo "<li><a href='addproduct.php'>Skapa produkter</a></li>
                     <li><a href='createcategory.php'>Skapa kategori</a></li>
-					<li><a href='registerworker.php'>Lägg till anställd</a></li>";
-					}
-					?>
+                    <li><a href='registerworker.php'>Lägg till anställd</a></li>";
+                    }
+                    ?>
                 </ul>
 
-				<script src = "search.js"></script>
-				<script src = "jquery-3.1.1.min.js"></script>
-				<script>function gohere(site){
-					if (window.XMLHttpRequest) {
-						xmlhttp = new XMLHttpRequest();
-					}else{
-						xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-					}
-					xmlhttp.onreadystatechange = function(){
-						if(this.readyState == 4 && this.status == 200){
-							document.location.href = (this.responseText);
-						}
-					};
-					xmlhttp.open("GET", "getpath.php?q="+site,true);
-					xmlhttp.send();
-					}			
-				</script>
-				<form class="navbar-form navbar-right">
-					<input list = "lista"onkeyup="myFunction(this.value)" onselect="gohere(this.value)" class="form-control" id = "q" placeholder="Sök...">
-					  
-	            </form>
+                <script src = "search.js"></script>
+                <script src = "jquery-3.1.1.min.js"></script>
+                <script>function gohere(site){
+                    if (window.XMLHttpRequest) {
+                        xmlhttp = new XMLHttpRequest();
+                    }else{
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function(){
+                        if(this.readyState == 4 && this.status == 200){
+                            document.location.href = (this.responseText);
+                        }
+                    };
+                    xmlhttp.open("GET", "getpath.php?q="+site,true);
+                    xmlhttp.send();
+                    }           
+                </script>
+                <form class="navbar-form navbar-right navbar-top">
+                    <input list = "lista"onkeyup="myFunction(this.value)" onselect="gohere(this.value)" class="form-control" id = "q" placeholder="Sök...">
+                      
+                </form>
   <datalist id="lista">
 
   </datalist>
-                <ul class="nav navbar-nav navbar-right" id="usrnav">
+                <ul class="nav navbar-nav navbar-right navbar-top" id="usrnav">
                     <!-- Detta bör förgöras av .ajax... -->
                 </ul>
                 <script type="text/javascript" src="usrnav.js" onload="usrnav();"></script>
             </div>
-	
-        </nav></div>
+    
+        </nav>
+    <div class="jumbotron" stype="margin-left:10pt;">
+        <h1>Kontorsshoppen.se - <?=$title?></h1>
+        <p>Kontorsvaror för den prisblinde kunden</p>
+    
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2">
