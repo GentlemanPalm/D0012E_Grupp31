@@ -24,8 +24,8 @@
 	}
 
 	if (isset($_POST["submit"])){
-		if ($user_ID == ""){
-			echo "Not all fields were entered.";
+		if ($user_ID == "" || querySQL("SELECT user_ID FROM Cart WHERE user_ID = '$user_ID'")->num_rows < 1){
+			echo "Beställningen verkar vara tom!";
 		}else{
 			$query = querySQL("INSERT INTO Orders (user_ID, payment_option, payment_received, order_placed, discount)
 					VALUES ('$user_ID', 'Faktura', 0.00, NOW(), 0)");
