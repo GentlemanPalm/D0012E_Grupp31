@@ -18,8 +18,9 @@ if (isset($_POST["title"])) {
 	} else {
 		$par = "NULL";
 	}
+	$approved = querySQL("SELECT approved FROM Users WHERE user_ID = '$_SESSION[user_ID]'")->fetch_assoc()["approved"];
 	querySQL("INSERT INTO Comments (title, description, parent, product_ID, user_ID, approved)
-		VALUES ('$title','$content',$par,'$pid','$_SESSION[user_ID]',false)");
+		VALUES ('$title','$content',$par,'$pid','$_SESSION[user_ID]',$approved)");
 } else {
 	$cid = isset($_GET["par"]) ? "commentform".sanitizeString($_GET["par"]) : "commentform";
 ?>
