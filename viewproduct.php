@@ -62,7 +62,7 @@ if (!$valid) {
 	?>
 	 <h2><?=$val["name"]?></h2>
 	 <img src = "<?=$img_url?>" alt = "Produktbild" width = "200px" />
-	 <p>Lagersaldo: <div id = "show_quantity"></div></p>
+	 <div id = "show_quantity"></div>
 	 <p>Pris: <?=$price?></p>
 	 <p><?=$val["description"]?></p>
 	 	Antal: <input type = "text" value ="1" id ="quantity" name = "quantity" onkeypress="return isNumber(event)" maxlength = "4" size = "4" /><br><br>
