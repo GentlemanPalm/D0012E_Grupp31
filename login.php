@@ -2,7 +2,7 @@
 	include "functions.php";
 	require 'template/header.php';
 	require 'template/footer.php';
-	generateHeader("Logga in");
+	
 	$error = $email = $password = "";
 
 	
@@ -33,6 +33,7 @@
       }
     }
   }
+  generateHeader("Logga in");
 ?>
 		<h1>Logga in</h1>
 		<form action = "" method = "POST">

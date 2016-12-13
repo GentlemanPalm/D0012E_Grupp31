@@ -1,7 +1,8 @@
 <?php
 require_once "connect.php";
+require_once "functions.php";
 global $connection;
-$search = $_GET['q'];
+$search = sanitizeString($_GET['q']);
 
 
 $con = $connection;
