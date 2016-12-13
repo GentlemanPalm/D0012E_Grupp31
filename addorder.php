@@ -27,6 +27,7 @@
 		if ($user_ID == "" || querySQL("SELECT user_ID FROM Cart WHERE user_ID = '$user_ID'")->num_rows < 1){
 			echo "Beställningen verkar vara tom!";
 		}else{
+			querySQL("START TRANSACTION");
 			$query = querySQL("INSERT INTO Orders (user_ID, payment_option, payment_received, order_placed, discount)
 					VALUES ('$user_ID', 'Faktura', 0.00, NOW(), 0)");
 			$iid = mysqli_insert_id($connection);
@@ -35,6 +36,7 @@
 				querySQL("INSERT INTO OrderItems (order_ID, item, quantity, price, vat, shipped) VALUES ('$iid', '$res[ID]', '$res[quantity]', '$res[price]', '$res[vat]', NULL)");
 			}
 			querySQL("DELETE FROM Cart WHERE user_ID = '$user_ID'");
+			querySQL("COMMIT");
 			//querySQL("UPDATE Cart SET order_ID = $iid WHERE (user_ID = $user_ID AND order_ID IS NULL)"); 
 		
 			if (isset($_POST["billing"])) {
