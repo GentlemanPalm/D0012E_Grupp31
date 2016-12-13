@@ -68,9 +68,10 @@ function generateHeader ($title, $gen_head = true, $gen_bootstrap = true)
                     <li><a href="index.php">Start</a></li>
                     <li><a href="browseproducts.php">Shop</a></li>
 					<?php
-					if($_SESSION['access'] == "3"){
+					if(@$_SESSION['access'] == "3"){
 					echo "<li><a href='addproduct.php'>Skapa produkter</a></li>
-                    <li><a href='createcategory.php'>Skapa kategori</a></li>";
+                    <li><a href='createcategory.php'>Skapa kategori</a></li>
+					<li><a href='registerworker.php'>Lägg till anställd</a></li>";
 					}
 					?>
                     
