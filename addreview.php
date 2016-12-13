@@ -40,7 +40,7 @@ if (isset($_POST["grade"])) {
 	} 
 ?>
 	<form action="addreview.php" method="POST" id="<?=$cid?>">
-		<input type="number" class="form-control" id="grade" name="grade" placeholder="Betyg på en skala mellan 1 och 10"><br />
+		<input type="number" class="form-control" id="grade" name="grade" placeholder="Betyg på en skala mellan 1 och 10" min="1" max="10"><br />
 		<input type="checkbox" class="form-control" id="writtenreview" name="writtenreview">Jag vill skriva en recension</input><br />
 		<input type="text" class="form-control written" name="title" placeholder="Titel..." disabled="disabled"/><br />
 		<textarea class="form-control written" name="content" placeholder="Din kommentar här, max 500 tecken." style="resize: none;" rows="10" disabled="disabled"></textarea><br />
