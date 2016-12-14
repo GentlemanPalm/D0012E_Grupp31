@@ -130,7 +130,8 @@ generateHeader("Visa order");
         <?php
         
     }
-    if ($admin) { 
+    if ($admin) {
+        $uid = querySQL("SELECT user_ID FROM Orders WHERE ID = $id")->fetch_assoc()["user_ID"];
     $altaddr = querySQL("SELECT * FROM Users WHERE ID = $uid");
     while ($aa = $altaddr->fetch_assoc()) {
         $addrt = "Användar";
