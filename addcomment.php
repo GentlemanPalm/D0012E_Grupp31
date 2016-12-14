@@ -18,9 +18,8 @@ if (isset($_POST["title"])) {
 	} else {
 		$par = "NULL";
 	}
-	$approved = ($_SESSION["access"] > 1);
 	querySQL("INSERT INTO Comments (title, description, parent, product_ID, user_ID, approved)
-		VALUES ('$title','$content',$par,'$pid','$_SESSION[user_ID]',$approved)");
+		VALUES ('$title','$content',$par,'$pid','$_SESSION[user_ID]', false)");
 } else {
 	$cid = isset($_GET["par"]) ? "commentform".sanitizeString($_GET["par"]) : "commentform";
 ?>
