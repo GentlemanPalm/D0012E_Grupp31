@@ -32,14 +32,13 @@
 				querySQL("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'");
 				$query = querySQL("INSERT INTO Users (email, passw, regdate, access, birthday, phone, zip, sec, address1, city, country, first_name, last_name)
 									VALUES('$email', '$password', '$today', '1', '$birthday', '$phonenumber', '$zipcode', '$ssn', '$address1', '$town', 'Sweden', '$name', '$lastname')");
-				header("Location: login.php");
+				@header("Location: login.php");
 			}else{
 				echo "This email is already registred!";
 			}
 		}
 	}
 ?>
-<!DOCTYPE html>
 
 	<script>
 		function isNumber(evt) {
