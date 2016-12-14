@@ -37,18 +37,23 @@ if (isset($_POST["title"])) {
 		<button class="btn btn-success form-control" id="comment" name="submit" type="submit" value="1">Kommentera!</button>
 	</form>
 	<script type="text/javascript">
+
 	$("#<?=$cid?>").submit(function(ev) {
-	
-	ev.preventDefault(ev);
+
 	$.ajax({
 		url: $("#<?=$cid?>").attr("action"),
 		type: $("#<?=$cid?>").attr("method"),
 		data: $("#<?=$cid?>").serialize(),
 		success: function(data) {
-			$("#addcomment<?=$_GET["par"]?>").html("Du har nu lagt upp en kommentar. Grattis.");
+			$("#addcomment<?=isset($_GET["par"]) ? $_GET["par"] : "" ?>").html("Du har nu lagt upp en kommentar. Grattis.");
 			updateComments();
+			ev.preventDefault(ev);
+			ev.preventDefault();
+			return false;
 		}
 	});
+		ev.preventDefault(ev);
+		ev.preventDefault();
 	return false;
 });
 	</script>
